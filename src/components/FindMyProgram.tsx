@@ -1,0 +1,414 @@
+import React, { useMemo, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, ArrowLeft, Check, Sparkles, RotateCcw } from 'lucide-react';
+import { useT } from '../lib/i18n';
+import { Button } from './ui/Button';
+import { Reveal } from './ui/Reveal';
+import { CountUp } from './ui/CountUp';
+import { backgroundOptions, interestOptions, programs } from '../lib/data';
+type Step = 1 | 2 | 3 | 4;
+export function FindMyProgram() {
+  const { t } = useT();
+  const [step, setStep] = useState<Step>(1);
+  const [background, setBackground] = useState<string | null>(null);
+  const [marks, setMarks] = useState<number>(70);
+  const [interests, setInterests] = useState<string[]>([]);
+  const matches = useMemo(() => {
+    if (!background) return [];
+    return programs.
+    filter((p) => p.backgrounds.includes(background)).
+    map((p) => {
+      const interestMatch =
+      interests.length === 0 ||
+      p.interests.some((i) => interests.includes(i));
+      let status: 'eligible' | 'close' | 'no';
+      if (marks >= p.minPercent) status = 'eligible';else
+      if (marks >= p.minPercent - 5) status = 'close';else
+      status = 'no';
+      return {
+        p,
+        status,
+        interestMatch
+      };
+    }).
+    filter((m) => m.interestMatch).
+    sort((a, b) => {
+      const order = {
+        eligible: 0,
+        close: 1,
+        no: 2
+      } as const;
+      return order[a.status] - order[b.status];
+    });
+  }, [background, marks, interests]);
+  const eligibleCount = matches.filter((m) => m.status !== 'no').length;
+  function reset() {
+    setStep(1);
+    setBackground(null);
+    setMarks(70);
+    setInterests([]);
+  }
+  function toggleInterest(i: string) {
+    setInterests((prev) => {
+      if (prev.includes(i)) return prev.filter((x) => x !== i);
+      if (prev.length >= 3) return prev;
+      return [...prev, i];
+    });
+  }
+  return (
+    <section id="find" className="bg-[#F3F5F9]">
+      <div className="mx-auto max-w-[1200px] px-5 md:px-8 py-16 md:py-24">
+        <Reveal>
+          <div className="max-w-[760px]">
+            <div className="inline-flex items-center gap-2 text-[#a81e24] text-[13px] font-medium uppercase tracking-[0.14em] mb-4">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span className="keep-ltr">Find my program</span>
+            </div>
+            <h2 className="display-tight font-semibold text-black text-[34px] md:text-[46px] tracking-tight">
+              {t('find.title')}
+            </h2>
+            <p className="mt-4 text-[#666666] text-[16px] md:text-[18px] max-w-[600px]">
+              {t('find.sub')}
+            </p>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.05}>
+          <div className="mt-10 md:mt-12 bg-white rounded-[28px] shadow-surface border border-[#E5E7EB] overflow-hidden">
+            {/* Stepper header */}
+            {step < 4 &&
+            <div className="px-6 md:px-10 pt-6 md:pt-8 border-b border-[#F0F0F2]">
+                <div className="flex items-center gap-3 mb-5">
+                  {[1, 2, 3].map((s) =>
+                <div key={s} className="flex items-center gap-3 flex-1">
+                      <div
+                    className={`w-7 h-7 rounded-full grid place-items-center text-[12px] font-semibold transition-colors ${step >= (s as Step) ? 'bg-[#a81e24] text-white' : 'bg-[#F3F5F9] text-[#666666] border border-[#E5E7EB]'}`}>
+                    
+                        {step > s ?
+                    <Check className="w-3.5 h-3.5" /> :
+
+                    <span className="num">{s}</span>
+                    }
+                      </div>
+                      {s < 3 &&
+                  <div
+                    className={`flex-1 h-px ${step > s ? 'bg-[#a81e24]' : 'bg-[#E5E7EB]'}`} />
+
+                  }
+                    </div>
+                )}
+                </div>
+              </div>
+            }
+
+            <div className="px-6 md:px-10 py-8 md:py-10 min-h-[420px] flex flex-col">
+              <AnimatePresence mode="wait">
+                {step === 1 &&
+                <motion.div
+                  key="s1"
+                  initial={{
+                    opacity: 0,
+                    y: 12
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: -8
+                  }}
+                  transition={{
+                    duration: 0.25
+                  }}>
+                  
+                    <h3 className="text-[22px] md:text-[26px] font-semibold text-black">
+                      {t('find.step1')}
+                    </h3>
+                    <div className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                      {backgroundOptions.map((b) =>
+                    <button
+                      key={b}
+                      onClick={() => {
+                        setBackground(b);
+                        setTimeout(() => setStep(2), 180);
+                      }}
+                      className={`text-start p-4 rounded-2xl border transition-all min-h-[88px] ${background === b ? 'border-[#a81e24] bg-[#a81e24]/[0.05] ring-2 ring-[#a81e24]/20' : 'border-[#E5E7EB] hover:border-black/30 bg-white'}`}>
+                      
+                          <div className="font-semibold text-[15px] text-black">
+                            {b}
+                          </div>
+                        </button>
+                    )}
+                    </div>
+                  </motion.div>
+                }
+
+                {step === 2 &&
+                <motion.div
+                  key="s2"
+                  initial={{
+                    opacity: 0,
+                    y: 12
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: -8
+                  }}
+                  transition={{
+                    duration: 0.25
+                  }}>
+                  
+                    <h3 className="text-[22px] md:text-[26px] font-semibold text-black">
+                      {t('find.step2')}
+                    </h3>
+                    <p className="mt-3 text-[#666666] text-[15px]">
+                      {t('find.step2.help')}
+                    </p>
+
+                    <div className="mt-8 max-w-[520px]">
+                      <div className="flex items-end justify-between mb-3">
+                        <span className="num text-[48px] md:text-[64px] font-semibold leading-none text-black tabular-nums">
+                          {marks}
+                          <span className="text-[#a81e24]">%</span>
+                        </span>
+                        <input
+                        type="number"
+                        min={40}
+                        max={100}
+                        value={marks}
+                        onChange={(e) =>
+                        setMarks(
+                          Math.max(
+                            40,
+                            Math.min(100, Number(e.target.value) || 0)
+                          )
+                        )
+                        }
+                        className="num w-20 h-10 px-3 rounded-full border border-[#D1D1D1] text-center text-[15px] focus:border-[#a81e24]" />
+                      
+                      </div>
+                      <input
+                      type="range"
+                      min={40}
+                      max={100}
+                      value={marks}
+                      onChange={(e) => setMarks(Number(e.target.value))}
+                      className="w-full accent-[#a81e24]"
+                      style={{
+                        direction: 'ltr'
+                      }} />
+                    
+                      <div className="flex justify-between mt-2 text-[12px] text-[#666666] num">
+                        <span>40%</span>
+                        <span>100%</span>
+                      </div>
+                    </div>
+                  </motion.div>
+                }
+
+                {step === 3 &&
+                <motion.div
+                  key="s3"
+                  initial={{
+                    opacity: 0,
+                    y: 12
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: -8
+                  }}
+                  transition={{
+                    duration: 0.25
+                  }}>
+                  
+                    <h3 className="text-[22px] md:text-[26px] font-semibold text-black">
+                      {t('find.step3')}
+                    </h3>
+                    <p className="mt-3 text-[#666666] text-[15px]">
+                      {t('find.step3.help')}{' '}
+                      <span className="num">({interests.length}/3)</span>
+                    </p>
+
+                    <div className="mt-6 flex flex-wrap gap-2.5">
+                      {interestOptions.map((i) => {
+                      const active = interests.includes(i);
+                      const disabled = !active && interests.length >= 3;
+                      return (
+                        <button
+                          key={i}
+                          disabled={disabled}
+                          onClick={() => toggleInterest(i)}
+                          className={`px-4 h-11 rounded-full border text-[14px] font-medium transition-all ${active ? 'bg-black text-white border-black' : disabled ? 'bg-white text-[#999] border-[#E5E7EB] cursor-not-allowed' : 'bg-white text-black border-[#E5E7EB] hover:border-black'}`}>
+                          
+                            {i}
+                          </button>);
+
+                    })}
+                    </div>
+                  </motion.div>
+                }
+
+                {step === 4 &&
+                <motion.div
+                  key="s4"
+                  initial={{
+                    opacity: 0,
+                    y: 12
+                  }}
+                  animate={{
+                    opacity: 1,
+                    y: 0
+                  }}
+                  exit={{
+                    opacity: 0,
+                    y: -8
+                  }}
+                  transition={{
+                    duration: 0.25
+                  }}>
+                  
+                    <div className="flex items-start justify-between gap-4 flex-wrap">
+                      <div>
+                        <div className="text-[#666666] text-[14px]">
+                          {t('find.result')}
+                        </div>
+                        <div className="display-tight font-semibold text-black text-[44px] md:text-[64px] leading-none mt-1">
+                          <CountUp
+                          to={eligibleCount}
+                          className="text-[#a81e24]" />
+                        {' '}
+                          <span className="text-[24px] md:text-[28px] font-medium text-black/80">
+                            {t('find.programs')}
+                          </span>
+                        </div>
+                      </div>
+                      <button
+                      onClick={reset}
+                      className="inline-flex items-center gap-2 text-[14px] text-[#666666] hover:text-black h-10">
+                      
+                        <RotateCcw className="w-3.5 h-3.5" />
+                        {t('find.restart')}
+                      </button>
+                    </div>
+
+                    <div className="mt-6 grid sm:grid-cols-2 lg:grid-cols-3 gap-3 max-h-[460px] overflow-y-auto pr-1">
+                      {matches.map(({ p, status }) =>
+                    <div
+                      key={p.id}
+                      className={`p-4 rounded-2xl border bg-white transition-all ${status === 'eligible' ? 'border-[#E5E7EB]' : status === 'close' ? 'border-[#E5E7EB]' : 'border-[#E5E7EB] opacity-60'}`}>
+                      
+                          <div className="flex items-start justify-between gap-2">
+                            <div>
+                              <div className="text-[11px] text-[#666666] uppercase tracking-wider">
+                                {t('programs.group')}{' '}
+                                <span className="num">{p.group}</span>
+                              </div>
+                              <div className="font-semibold text-black text-[15px] mt-1 leading-snug">
+                                {p.name}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="mt-3 flex items-center justify-between gap-2">
+                            <div className="text-[12px] text-[#666666]">
+                              Min <span className="num">{p.minPercent}%</span>
+                            </div>
+                            <StatusPill status={status} t={t} />
+                          </div>
+                        </div>
+                    )}
+                    </div>
+
+                    <div className="mt-8 flex flex-col sm:flex-row gap-3 sm:items-center">
+                      <Button as="a" href="#apply" variant="primary" size="lg">
+                        {t('find.continue')}
+                        <ArrowRight className="w-4 h-4 rtl:rotate-180" />
+                      </Button>
+                      <a
+                      href="#programs"
+                      className="text-[14px] text-[#a81e24] hover:text-[#8f1920] font-medium">
+                      
+                        {t('find.browseAll')}
+                      </a>
+                    </div>
+                  </motion.div>
+                }
+              </AnimatePresence>
+
+              {/* Step controls */}
+              {step < 4 &&
+              <div className="mt-auto pt-8 flex items-center justify-between">
+                  <button
+                  onClick={() => setStep((s) => Math.max(1, s - 1 as Step))}
+                  disabled={step === 1}
+                  className="inline-flex items-center gap-2 h-10 px-3 text-[14px] text-[#666666] hover:text-black disabled:opacity-30 disabled:hover:text-[#666666]">
+                  
+                    <ArrowLeft className="w-4 h-4 rtl:rotate-180" />
+                    {t('find.back')}
+                  </button>
+
+                  {step === 3 ?
+                <Button
+                  onClick={() => setStep(4)}
+                  variant="primary"
+                  size="lg">
+                  
+                      {t('find.see')}
+                      <ArrowRight className="w-4 h-4 rtl:rotate-180" />
+                    </Button> :
+
+                <Button
+                  onClick={() => setStep((s) => Math.min(3, s + 1) as Step)}
+                  variant="primary"
+                  disabled={step === 1 && !background}>
+                  
+                      {t('find.next')}
+                      <ArrowRight className="w-4 h-4 rtl:rotate-180" />
+                    </Button>
+                }
+                </div>
+              }
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>);
+
+}
+function StatusPill({
+  status,
+  t
+
+
+
+}: {status: 'eligible' | 'close' | 'no';t: (k: string) => string;}) {
+  if (status === 'eligible') {
+    return (
+      <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 h-6 rounded-full bg-[#D97706]/15 text-black border border-[#D97706]/40">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#D97706]" />
+        {t('find.eligible')}
+      </span>);
+
+  }
+  if (status === 'close') {
+    return (
+      <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 h-6 rounded-full bg-black/5 text-black border border-black/10">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#666666]" />
+        {t('find.close')}
+      </span>);
+
+  }
+  return (
+    <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 h-6 rounded-full bg-[#F3F5F9] text-[#999] border border-[#E5E7EB]">
+      {t('find.notEligible')}
+    </span>);
+
+}

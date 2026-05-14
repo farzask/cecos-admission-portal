@@ -1,0 +1,83 @@
+/* @import url() FONT IMPORTS MUST ALWAYS BE AT THE VERY TOP OF THIS FILE, ABOVE THE TAILWIND IMPORTS — DO NOT DELETE THIS COMMENT */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap');
+
+/* CRITICAL: THE FOLLOWING TAILWIND IMPORTS MUST NEVER BE DELETED OR REORDERED — DO NOT DELETE THIS COMMENT */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* END TAILWIND IMPORTS — ALL OTHER CSS MUST GO BELOW THIS LINE */
+
+:root {
+  --c-brand: #a81e24;
+  --c-brand-hover: #8f1920;
+  --c-brand-active: #761519;
+  --c-brand-tint: #FBF4F5;
+  --c-black: #000000;
+  --c-charcoal: #010101;
+  --c-ghost: #191919;
+  --c-white: #FFFFFF;
+  --c-offwhite: #F6F4F2;
+  --c-lightgray: #E5E7EB;
+  --c-palegray: #E5E5E5;
+  --c-mediumgray: #666666;
+  --c-accent: #D97706;
+  --shadow-surface: rgba(222, 222, 222, 0.2) 0px 4px 20px 0px;
+  --shadow-elevated: rgba(0, 0, 0, 0.1) 0px 8px 32px 0px;
+}
+html, body, #root {
+  height: 100%;
+}
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-feature-settings: 'cv02','cv03','cv04','cv11';
+  color: var(--c-black);
+  background: var(--c-white);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+/* Urdu mode */
+html[lang="ur"] body {
+  font-family: 'Noto Nastaliq Urdu', 'Inter', sans-serif;
+  line-height: 2;
+}
+html[lang="ur"] .keep-ltr {
+  direction: ltr;
+  unicode-bidi: embed;
+  display: inline-block;
+}
+/* Numbers always LTR even in Urdu mode */
+html[lang="ur"] .num {
+  direction: ltr;
+  unicode-bidi: embed;
+  font-family: 'Inter', sans-serif;
+  display: inline-block;
+}
+/* Display headline tightening */
+.display-tight {
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+}
+/* Focus ring */
+*:focus-visible {
+  outline: none;
+  box-shadow: 0px 0px 0px 3px rgba(168, 30, 36, 0.3);
+  border-radius: 6px;
+}
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* Smooth scroll for anchor links */
+html { scroll-behavior: smooth; }
+/* Hide scrollbar on horizontal scroll containers */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+/* Card shadow utility */
+.shadow-surface { box-shadow: var(--shadow-surface); }
+.shadow-elevated { box-shadow: var(--shadow-elevated); }
