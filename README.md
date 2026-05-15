@@ -20,10 +20,6 @@ Welcome to the **CECOS University Admission Portal**! This project is a modern, 
 - **Icons**: [Lucide React](https://lucide.dev/)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 
-## 📦 Getting Started
-
-To get the project running locally on your machine, follow these steps:
-
 ### Prerequisites
 Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
 
