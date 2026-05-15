@@ -630,8 +630,7 @@ export const backgroundOptions = [
   'ICS',
   'FA / Arts & Humanities',
   'Diploma of Associate Engineer',
-  'A-Levels',
-  'Postgraduate'] as
+  'A-Levels'] as
   const;
 
 export const interestOptions = [
