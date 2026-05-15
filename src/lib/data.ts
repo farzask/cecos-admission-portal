@@ -658,7 +658,7 @@ export const scholarships: Scholarship[] = [
     name: 'Female Concession',
     reduction: '20%',
     description: '20% in tuition fee (For all female).',
-    tag: 'Female-only',
+    tag: 'Female Concession',
     categories: ['female']
   },
   {
@@ -735,7 +735,7 @@ export const scholarships: Scholarship[] = [
     name: 'Malala Future Scholar Program',
     reduction: '40%',
     description: '40% concession in Tuition Fee. 5 Seats for Female only.',
-    tag: 'Female-only',
+    tag: 'Female Concession',
     categories: ['female', 'merit']
   },
   {
@@ -797,21 +797,21 @@ export const testimonials: Testimonial[] = [
   },
   {
     // Image 4: Female student standing in front of architectural blueprints holding a CECOS mug
-    name: 'Hina Wazir',
+    name: 'Sadia Karim',
     program: 'Bachelor of Architecture, Class of 2025',
     quote:
       'Architecture at CECOS is a journey of creativity and technical rigor. My design projects are pinned on these very walls — seeing them come to life is incredibly rewarding.',
-    initials: 'HW',
+    initials: 'SK',
     accent: 'black',
     image: '/assets/Student-Testimonial-4.jpg'
   },
   {
     // Image 5: Male student in hard hat and yellow high-vis jacket at a construction site
-    name: 'Bilal Rehman',
+    name: 'Najam Saddan',
     program: 'BSc Civil Engineering, Class of 2022',
     quote:
       'The field exposure during my civil engineering degree was exceptional. I was on actual construction sites while still a student — that experience is what sets CECOS graduates apart.',
-    initials: 'BR',
+    initials: 'NS',
     accent: 'blue',
     image: '/assets/Student-Testimonial-5.jpg'
   }];

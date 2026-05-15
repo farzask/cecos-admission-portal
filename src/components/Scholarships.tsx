@@ -117,14 +117,7 @@ export function Scholarships() {
         </div>
 
         <div className="mt-8 text-[14px] text-[#666666]">
-          {t('sch.footer').replace('→', '')}{' '}
-          <a
-            href="#"
-            className="text-[#a81e24] hover:text-[#8f1920] font-medium inline-flex items-center gap-1">
-            
-            See the full list{' '}
-            <ChevronRight className="w-3.5 h-3.5 rtl:rotate-180" />
-          </a>
+          {t('sch.footer').replace('→', '').trim()}
         </div>
       </div>
     </section>);

@@ -49,12 +49,12 @@ export const dict: Dict = {
     ur: 'فال 2026 کے داخلے کھل چکے ہیں'
   },
   'hero.title': {
-    en: 'Your CECOS application.\nDone in 5 minutes.',
+    en: 'Your Future Starts Here',
     ur: 'آپ کی CECOS درخواست۔\n5 منٹ میں مکمل۔'
   },
   'hero.sub': {
-    en: 'Apply online or visit our Hayatabad campus. Same form, same speed, in English or Urdu.',
-    ur: 'اپنے فون سے درخواست دیں یا ہمارے حیات آباد کیمپس آئیں۔ ایک ہی فارم، ایک ہی رفتار، انگریزی یا اردو میں۔'
+    en: 'Apply online or visit our campus. Same form, in English or Urdu.',
+    ur: 'اپنے فون سے درخواست دیں یا ہمارے حیات آباد کیمپس آئیں۔ ایک ہی فارم، انگریزی یا اردو میں۔'
   },
   'hero.cta1': {
     en: 'Start your application',
@@ -257,7 +257,7 @@ export const dict: Dict = {
     ur: 'ان کے لیے یہاں درخواست نہیں دینی — لیکن جاننا آپ کا فیصلہ بدل سکتا ہے۔'
   },
   'sch.footer': {
-    en: 'Calculated and verified after admission. See the full list →',
+    en: 'Calculated and verified after admission.',
     ur: 'داخلے کے بعد طے ہوتا ہے۔ مکمل فہرست ←'
   },
   'sch.all': {
@@ -269,7 +269,7 @@ export const dict: Dict = {
     ur: 'میرٹ'
   },
   'sch.female': {
-    en: 'Female-only',
+    en: 'Female Concession',
     ur: 'صرف خواتین'
   },
   'sch.need': {

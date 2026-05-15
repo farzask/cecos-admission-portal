@@ -149,13 +149,6 @@ export function Testimonials() {
                     </blockquote>
                   </motion.div>
                 </AnimatePresence>
-
-                <a
-                  href="#"
-                  className="mt-8 inline-flex items-center gap-1.5 text-[#a81e24] hover:text-[#8f1920] text-[14px] font-medium">
-
-                  {t('stories.read')}
-                </a>
               </div>
             </div>
           </div>

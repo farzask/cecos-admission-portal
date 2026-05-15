@@ -10,7 +10,7 @@ import { Reveal } from './ui/Reveal';
 const bachelorGroups = disciplineGroups.filter((g) => g.number <= 5);
 
 // Masters programs organized into cards by field
-const masterGroups = [
+const postgraduateGroups = [
   {
     number: 1,
     name: 'Civil Engineering',
@@ -46,6 +46,7 @@ const masterGroups = [
       'MBA (Non-Business)',
       'MS Management Science (Finance, Marketing, HRM)',
       'MS Project Management',
+      'PhD Management Sciences',
     ],
   },
   {
@@ -55,25 +56,34 @@ const masterGroups = [
       'MS Computer Science',
       'MS Software Engineering',
       'MS Applied Mathematics',
+      'PhD Computer Science',
     ],
   },
   {
     number: 6,
-    name: 'Sciences & Health',
+    name: 'Sciences, Health & Humanities',
     programs: [
       'MS Biotechnology',
       'MS Pharmacy – Pharmaceutics',
       'MS Pharmacy – Pharmacology',
       'MS Pharmacy – Pharmacy Practice',
+      'MPhil English',
+      'MPhil Psychology',
+      'MPhil Islamic Studies',
+      'MPhil Biotechnology',
+      'MPhil Microbiology',
+      'PhD English',
+      'PhD Psychology',
+      'PhD Biotechnology',
     ],
   },
 ];
 
-type Tab = 'bachelors' | 'masters';
+type Tab = 'undergraduate' | 'postgraduate';
 
 export function Programs() {
   const { t } = useT();
-  const [activeTab, setActiveTab] = useState<Tab>('bachelors');
+  const [activeTab, setActiveTab] = useState<Tab>('undergraduate');
 
   return (
     <section id="programs" className="bg-white">
@@ -97,7 +107,7 @@ export function Programs() {
         {/* Tab Switcher — larger size */}
         <Reveal delay={0.05}>
           <div className="flex gap-1.5 p-1.5 rounded-2xl bg-[#F3F5F9] border border-[#E5E7EB] w-fit mb-10">
-            {(['bachelors', 'masters'] as Tab[]).map((tab) => (
+            {(['undergraduate', 'postgraduate'] as Tab[]).map((tab) => (
               <button
                 key={tab}
                 id={`tab-${tab}`}
@@ -108,7 +118,7 @@ export function Programs() {
                     : 'text-[#666666] hover:text-black hover:bg-white/60'
                 }`}
               >
-                {tab === 'bachelors' ? 'Bachelors' : 'Masters'}
+                {tab === 'undergraduate' ? 'Undergraduate' : 'Postgraduate'}
               </button>
             ))}
           </div>
@@ -116,9 +126,9 @@ export function Programs() {
 
         {/* Tab Content */}
         <AnimatePresence mode="wait">
-          {activeTab === 'bachelors' ? (
+          {activeTab === 'undergraduate' ? (
             <motion.div
-              key="bachelors"
+              key="undergraduate"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
@@ -132,7 +142,6 @@ export function Programs() {
                       <div className="num text-[#a81e24] font-semibold text-[14px] tracking-wider">
                         {String(g.number).padStart(2, '0')}
                       </div>
-                      <ArrowUpRight className="w-4 h-4 text-[#999] group-hover:text-black transition-colors" />
                     </div>
                     <h3 className="mt-4 font-semibold text-black text-[20px] leading-tight tracking-tight">
                       {g.name}
@@ -158,7 +167,7 @@ export function Programs() {
                         </span>
                       </div>
                       <Link
-                        to="/fees"
+                        to={`/fees?group=${g.number}`}
                         className="inline-flex items-center gap-2 text-[13px] font-medium text-[#a81e24] hover:text-[#8a181d] transition-colors"
                       >
                         Check Fee Structure
@@ -171,21 +180,20 @@ export function Programs() {
             </motion.div>
           ) : (
             <motion.div
-              key="masters"
+              key="postgraduate"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.25 }}
               className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5"
             >
-              {masterGroups.map((g, i) => (
+              {postgraduateGroups.map((g, i) => (
                 <Reveal key={g.number} delay={Math.min(i * 0.04, 0.2)}>
                   <div className="group flex flex-col h-full p-6 md:p-7 rounded-[24px] bg-white border border-[#E5E7EB] hover:border-black transition-all hover:shadow-surface">
                     <div className="flex items-start justify-between">
                       <div className="num text-[#a81e24] font-semibold text-[14px] tracking-wider">
                         {String(g.number).padStart(2, '0')}
                       </div>
-                      <ArrowUpRight className="w-4 h-4 text-[#999] group-hover:text-black transition-colors" />
                     </div>
                     <h3 className="mt-4 font-semibold text-black text-[20px] leading-tight tracking-tight">
                       {g.name}
@@ -197,21 +205,6 @@ export function Programs() {
                         </li>
                       ))}
                     </ul>
-                    <div className="mt-auto pt-6">
-                      <div className="flex items-center gap-3 mb-4">
-                        <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 h-6 rounded-full border bg-[#F3F5F9] text-black border-[#E5E7EB]">
-                          <FlaskConical className="w-3 h-3" />
-                          CECOS / NTS / ETEA test
-                        </span>
-                      </div>
-                      <Link
-                        to="/fees"
-                        className="inline-flex items-center gap-2 text-[13px] font-medium text-[#a81e24] hover:text-[#8a181d] transition-colors"
-                      >
-                        Check Fee Structure
-                        <ArrowRight className="w-4 h-4" />
-                      </Link>
-                    </div>
                   </div>
                 </Reveal>
               ))}
