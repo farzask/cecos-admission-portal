@@ -65,7 +65,7 @@ export const dict: Dict = {
     ur: 'میرے لیے پروگرام تلاش کریں'
   },
   'hero.timeBadge': {
-    en: 'Avg. completion time: 4 minutes on mobile.',
+    en: 'Avg. completion time: 5 minutes.',
     ur: 'اوسط وقت: موبائل پر 4 منٹ۔'
   },
   'hero.trust1': {
@@ -81,7 +81,7 @@ export const dict: Dict = {
     ur: 'HEC سے منظور شدہ (W3)'
   },
   'hero.trust4': {
-    en: 'ISO 9001 certified',
+    en: 'ISO 9001 & ISO 21001 certified',
     ur: 'ISO 9001 تصدیق شدہ'
   },
   'cd.label': {

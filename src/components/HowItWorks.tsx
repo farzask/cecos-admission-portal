@@ -5,21 +5,21 @@ import { Reveal } from './ui/Reveal';
 export function HowItWorks() {
   const { t } = useT();
   const steps = [
-  {
-    icon: UserPlus,
-    t: t('how.1.t'),
-    d: t('how.1.d')
-  },
-  {
-    icon: ListChecks,
-    t: t('how.2.t'),
-    d: t('how.2.d')
-  },
-  {
-    icon: CreditCard,
-    t: t('how.3.t'),
-    d: t('how.3.d')
-  }];
+    {
+      icon: UserPlus,
+      t: t('how.1.t'),
+      d: t('how.1.d')
+    },
+    {
+      icon: ListChecks,
+      t: t('how.2.t'),
+      d: t('how.2.d')
+    },
+    {
+      icon: CreditCard,
+      t: t('how.3.t'),
+      d: t('how.3.d')
+    }];
 
   return (
     <section id="how" className="bg-white">
@@ -33,8 +33,7 @@ export function HowItWorks() {
               Three steps. About <span className="num">5</span> minutes.
             </h2>
             <p className="mt-4 text-[#666666] text-[16px] md:text-[18px]">
-              No paperwork, no waiting in line. The whole application fits on
-              your phone.
+              No paperwork, no waiting in line. Simple steps, big opportunities.
             </p>
           </div>
         </Reveal>
@@ -44,7 +43,7 @@ export function HowItWorks() {
           <div
             className="hidden md:block absolute top-[34px] left-[10%] right-[10%] h-px bg-[#E5E7EB]"
             aria-hidden />
-          
+
 
           {steps.map((s, i) => {
             const Icon = s.icon;

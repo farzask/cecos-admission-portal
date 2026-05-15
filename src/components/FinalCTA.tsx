@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { useT } from '../lib/i18n';
 import { Button } from './ui/Button';
 import { Reveal } from './ui/Reveal';
@@ -35,7 +36,15 @@ export function FinalCTA() {
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform rtl:rotate-180" />
             </Button>
           </div>
-          <p className="mt-6 text-white/55 text-[14px]">{t('final.sub')}</p>
+          <p className="mt-6 text-white/55 text-[14px]">
+            {t('final.sub')}
+            <br className="sm:hidden" />
+            <span className="inline-flex items-center justify-center gap-3 mt-3 sm:mt-0 sm:ml-4 text-white/40">
+              <Link to="/terms" className="hover:text-white transition-colors underline underline-offset-2">Terms & Conditions</Link>
+              <span>·</span>
+              <Link to="/privacy" className="hover:text-white transition-colors underline underline-offset-2">Privacy Policy</Link>
+            </span>
+          </p>
         </Reveal>
       </div>
     </section>);

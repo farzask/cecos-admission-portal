@@ -140,7 +140,7 @@ export const programs: Program[] = [
     duration: '4 years',
     test: 'ETEA',
     interests: ['Engineering'],
-    backgrounds: ['Pre-Engineering', 'A-Levels', 'DAE'],
+    backgrounds: ['Pre-Engineering', 'A-Levels', 'Diploma of Associate Engineer'],
     level: 'UG'
   },
   {
@@ -151,7 +151,7 @@ export const programs: Program[] = [
     duration: '4 years',
     test: 'ETEA',
     interests: ['Engineering', 'AI / Robotics'],
-    backgrounds: ['Pre-Engineering', 'A-Levels', 'DAE'],
+    backgrounds: ['Pre-Engineering', 'A-Levels', 'Diploma of Associate Engineer'],
     level: 'UG'
   },
   {
@@ -162,7 +162,7 @@ export const programs: Program[] = [
     duration: '4 years',
     test: 'ETEA',
     interests: ['Engineering'],
-    backgrounds: ['Pre-Engineering', 'A-Levels', 'DAE'],
+    backgrounds: ['Pre-Engineering', 'A-Levels', 'Diploma of Associate Engineer'],
     level: 'UG'
   },
 
@@ -272,7 +272,7 @@ export const programs: Program[] = [
     duration: '4 years',
     test: 'CECOS / NTS / ETEA',
     interests: ['Engineering', 'Computer Science', 'AI / Robotics'],
-    backgrounds: ['Pre-Engineering', 'A-Levels', 'DAE'],
+    backgrounds: ['Pre-Engineering', 'A-Levels', 'Diploma of Associate Engineer'],
     level: 'UG'
   },
   {
@@ -319,7 +319,7 @@ export const programs: Program[] = [
     duration: '4 years',
     test: 'CECOS / NTS / ETEA',
     interests: ['Engineering'],
-    backgrounds: ['Pre-Engineering', 'DAE', 'A-Levels'],
+    backgrounds: ['Pre-Engineering', 'Diploma of Associate Engineer', 'A-Levels'],
     level: 'UG'
   },
   {
@@ -330,7 +330,7 @@ export const programs: Program[] = [
     duration: '4 years',
     test: 'CECOS / NTS / ETEA',
     interests: ['Engineering'],
-    backgrounds: ['Pre-Engineering', 'DAE', 'A-Levels'],
+    backgrounds: ['Pre-Engineering', 'Diploma of Associate Engineer', 'A-Levels'],
     level: 'UG'
   },
   {
@@ -341,7 +341,7 @@ export const programs: Program[] = [
     duration: '4 years',
     test: 'CECOS / NTS / ETEA',
     interests: ['Engineering'],
-    backgrounds: ['Pre-Engineering', 'DAE', 'A-Levels'],
+    backgrounds: ['Pre-Engineering', 'Diploma of Associate Engineer', 'A-Levels'],
     level: 'UG'
   },
 
@@ -629,7 +629,7 @@ export const backgroundOptions = [
   'Pre-Medical',
   'ICS',
   'FA / Arts & Humanities',
-  'DAE',
+  'Diploma of Associate Engineer',
   'A-Levels',
   'Postgraduate'] as
   const;

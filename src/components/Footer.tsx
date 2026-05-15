@@ -11,6 +11,8 @@ import {
 'lucide-react';
 import { useT } from '../lib/i18n';
 import { whatsappNumber } from '../lib/data';
+import { Link } from 'react-router-dom';
+
 export function Footer() {
   const { t } = useT();
   return (
@@ -127,12 +129,12 @@ export function Footer() {
         <div className="mt-12 pt-8 border-t border-[#E5E7EB] flex flex-col md:flex-row md:items-center justify-between gap-4 text-[13px] text-[#666666]">
           <div>{t('footer.rights')}</div>
           <div className="flex gap-5">
-            <a href="#" className="hover:text-black">
+            <Link to="/privacy" className="hover:text-black">
               {t('footer.privacy')}
-            </a>
-            <a href="#" className="hover:text-black">
+            </Link>
+            <Link to="/terms" className="hover:text-black">
               {t('footer.terms')}
-            </a>
+            </Link>
           </div>
         </div>
       </div>
