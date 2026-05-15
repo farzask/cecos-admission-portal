@@ -4,7 +4,6 @@ Welcome to the **CECOS University Admission Portal**! This project is a modern, 
 
 ## 🚀 Key Features
 
-- **Dual-Language Support (English & Urdu)**: A fully integrated custom i18n solution that allows users to toggle seamlessly between English and Urdu across the entire site without page reloads.
 - **Interactive Program Finder**: A step-by-step interactive quiz that helps prospective students find the right program based on their academic background and personal interests.
 - **Comprehensive Fee Structure**: A built-in robust search and filtering system for viewing detailed semester-wise fee breakdowns for all undergraduate and postgraduate programs.
 - **Dynamic Program Exploration**: Organized tabbed views separating Undergraduate and Postgraduate offerings, featuring more than 35+ diverse programs ranging from Engineering and Medical Sciences to Humanities and Business.
@@ -27,27 +26,6 @@ To get the project running locally on your machine, follow these steps:
 
 ### Prerequisites
 Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
-
-### Installation
-
-1. **Clone the repository** (if you haven't already):
-   ```bash
-   git clone https://github.com/farzask/cecos-admission-portal.git
-   cd cecos-admission-portal
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   npm install
-   ```
-
-3. **Start the development server**:
-   ```bash
-   npm run dev
-   ```
-
-4. **View the app**:
-   Open [http://localhost:5173](http://localhost:5173) in your browser.
 
 ## 📁 Project Structure
 
