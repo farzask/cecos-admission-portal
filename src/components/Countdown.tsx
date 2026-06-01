@@ -3,6 +3,8 @@ import { useT } from '../lib/i18n';
 import { useReducedMotion } from 'framer-motion';
 type Props = {
   target: Date;
+  label?: string;
+  subtitle?: string;
 };
 function diff(target: Date) {
   const ms = Math.max(0, target.getTime() - Date.now());
@@ -17,7 +19,7 @@ function diff(target: Date) {
     seconds
   };
 }
-export function Countdown({ target }: Props) {
+export function Countdown({ target, label, subtitle }: Props) {
   const { t } = useT();
   const [time, setTime] = useState(() => diff(target));
   const reduce = useReducedMotion();
@@ -46,7 +48,7 @@ export function Countdown({ target }: Props) {
   return (
     <div className="bg-white/[0.06] border border-white/10 rounded-[24px] p-5 md:p-6">
       <div className="text-white/60 text-[13px] uppercase tracking-[0.14em] mb-3">
-        {t('cd.label')}
+        {label ?? t('cd.label')}
       </div>
       <div
         className="grid grid-cols-4 gap-2 md:gap-3"
@@ -55,7 +57,7 @@ export function Countdown({ target }: Props) {
         {blocks.map((b) =>
         <div
           key={b.label}
-          className="bg-black/40 border border-white/5 rounded-2xl py-3 md:py-4 text-center">
+          className="bg-[#1A1612]/40 border border-white/5 rounded-2xl py-3 md:py-4 text-center">
           
             <div className="num text-white text-[28px] md:text-[36px] font-semibold leading-none tabular-nums">
               {String(b.v).padStart(2, '0')}
@@ -66,7 +68,7 @@ export function Countdown({ target }: Props) {
           </div>
         )}
       </div>
-      <div className="text-white/55 text-[13px] mt-4">{t('cd.sub')}</div>
+      <div className="text-white/55 text-[13px] mt-4">{subtitle ?? t('cd.sub')}</div>
     </div>);
 
 }

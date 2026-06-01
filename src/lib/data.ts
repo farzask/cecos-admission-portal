@@ -121,6 +121,7 @@ export type Program = {
   name: string;
   group: number;
   minPercent: number;
+  minCGPA?: number;
   duration: string;
   test: string;
   // tags align with quiz Step 3 categories
@@ -131,7 +132,7 @@ export type Program = {
 };
 
 export const programs: Program[] = [
-  // Group 1 — Engineering (ETEA required, Pre-Eng + A-Levels)
+  // Group 1 — Engineering (ETEA required, Pre-Eng)
   {
     id: 'bsc-civil',
     name: 'BSc Civil Engineering',
@@ -140,7 +141,7 @@ export const programs: Program[] = [
     duration: '4 years',
     test: 'ETEA',
     interests: ['Engineering'],
-    backgrounds: ['Pre-Engineering', 'A-Levels', 'Diploma of Associate Engineer'],
+    backgrounds: ['Pre-Engineering', 'Diploma of Associate Engineer'],
     level: 'UG'
   },
   {
@@ -151,7 +152,7 @@ export const programs: Program[] = [
     duration: '4 years',
     test: 'ETEA',
     interests: ['Engineering', 'AI / Robotics'],
-    backgrounds: ['Pre-Engineering', 'A-Levels', 'Diploma of Associate Engineer'],
+    backgrounds: ['Pre-Engineering', 'Diploma of Associate Engineer'],
     level: 'UG'
   },
   {
@@ -162,7 +163,7 @@ export const programs: Program[] = [
     duration: '4 years',
     test: 'ETEA',
     interests: ['Engineering'],
-    backgrounds: ['Pre-Engineering', 'A-Levels', 'Diploma of Associate Engineer'],
+    backgrounds: ['Pre-Engineering', 'Diploma of Associate Engineer'],
     level: 'UG'
   },
 
@@ -179,8 +180,7 @@ export const programs: Program[] = [
       'Pre-Engineering',
       'Pre-Medical',
       'ICS',
-      'FA / Arts & Humanities',
-      'A-Levels'],
+      'FA / Arts & Humanities'],
 
     level: 'UG'
   },
@@ -196,8 +196,7 @@ export const programs: Program[] = [
       'Pre-Engineering',
       'Pre-Medical',
       'ICS',
-      'FA / Arts & Humanities',
-      'A-Levels'],
+      'FA / Arts & Humanities'],
 
     level: 'UG'
   },
@@ -213,8 +212,7 @@ export const programs: Program[] = [
       'Pre-Engineering',
       'Pre-Medical',
       'ICS',
-      'FA / Arts & Humanities',
-      'A-Levels'],
+      'FA / Arts & Humanities'],
 
     level: 'UG'
   },
@@ -226,7 +224,7 @@ export const programs: Program[] = [
     duration: '4 years',
     test: 'CECOS / NTS / ETEA',
     interests: ['Mathematics'],
-    backgrounds: ['Pre-Engineering', 'Pre-Medical', 'ICS', 'A-Levels'],
+    backgrounds: ['Pre-Engineering', 'Pre-Medical', 'ICS'],
     level: 'UG'
   },
 
@@ -239,7 +237,7 @@ export const programs: Program[] = [
     duration: '4 years',
     test: 'CECOS / NTS / ETEA',
     interests: ['Computer Science', 'AI / Robotics'],
-    backgrounds: ['Pre-Engineering', 'Pre-Medical', 'ICS', 'A-Levels'],
+    backgrounds: ['Pre-Engineering', 'Pre-Medical', 'ICS'],
     level: 'UG'
   },
   {
@@ -250,7 +248,7 @@ export const programs: Program[] = [
     duration: '4 years',
     test: 'CECOS / NTS / ETEA',
     interests: ['Computer Science'],
-    backgrounds: ['Pre-Engineering', 'ICS', 'A-Levels'],
+    backgrounds: ['Pre-Engineering', 'ICS'],
     level: 'UG'
   },
   {
@@ -261,7 +259,7 @@ export const programs: Program[] = [
     duration: '4 years',
     test: 'CECOS / NTS / ETEA',
     interests: ['AI / Robotics', 'Computer Science'],
-    backgrounds: ['Pre-Engineering', 'ICS', 'A-Levels'],
+    backgrounds: ['Pre-Engineering', 'ICS'],
     level: 'UG'
   },
   {
@@ -272,7 +270,7 @@ export const programs: Program[] = [
     duration: '4 years',
     test: 'CECOS / NTS / ETEA',
     interests: ['Engineering', 'Computer Science', 'AI / Robotics'],
-    backgrounds: ['Pre-Engineering', 'A-Levels', 'Diploma of Associate Engineer'],
+    backgrounds: ['Pre-Engineering', 'Diploma of Associate Engineer'],
     level: 'UG'
   },
   {
@@ -287,8 +285,7 @@ export const programs: Program[] = [
       'Pre-Engineering',
       'Pre-Medical',
       'ICS',
-      'FA / Arts & Humanities',
-      'A-Levels'],
+      'FA / Arts & Humanities'],
 
     level: 'UG'
   },
@@ -304,8 +301,7 @@ export const programs: Program[] = [
       'Pre-Engineering',
       'Pre-Medical',
       'ICS',
-      'FA / Arts & Humanities',
-      'A-Levels'],
+      'FA / Arts & Humanities'],
 
     level: 'UG'
   },
@@ -319,7 +315,7 @@ export const programs: Program[] = [
     duration: '4 years',
     test: 'CECOS / NTS / ETEA',
     interests: ['Engineering'],
-    backgrounds: ['Pre-Engineering', 'Diploma of Associate Engineer', 'A-Levels'],
+    backgrounds: ['Pre-Engineering', 'Diploma of Associate Engineer'],
     level: 'UG'
   },
   {
@@ -330,7 +326,7 @@ export const programs: Program[] = [
     duration: '4 years',
     test: 'CECOS / NTS / ETEA',
     interests: ['Engineering'],
-    backgrounds: ['Pre-Engineering', 'Diploma of Associate Engineer', 'A-Levels'],
+    backgrounds: ['Pre-Engineering', 'Diploma of Associate Engineer'],
     level: 'UG'
   },
   {
@@ -341,7 +337,7 @@ export const programs: Program[] = [
     duration: '4 years',
     test: 'CECOS / NTS / ETEA',
     interests: ['Engineering'],
-    backgrounds: ['Pre-Engineering', 'Diploma of Associate Engineer', 'A-Levels'],
+    backgrounds: ['Pre-Engineering', 'Diploma of Associate Engineer'],
     level: 'UG'
   },
 
@@ -354,7 +350,7 @@ export const programs: Program[] = [
     duration: '5 years',
     test: 'CECOS / NTS / ETEA',
     interests: ['Medical & Health'],
-    backgrounds: ['Pre-Medical', 'A-Levels'],
+    backgrounds: ['Pre-Medical'],
     level: 'UG'
   },
   {
@@ -365,7 +361,7 @@ export const programs: Program[] = [
     duration: '5 years',
     test: 'CECOS / NTS / ETEA',
     interests: ['Medical & Health'],
-    backgrounds: ['Pre-Medical', 'A-Levels'],
+    backgrounds: ['Pre-Medical'],
     level: 'UG'
   },
   {
@@ -376,7 +372,7 @@ export const programs: Program[] = [
     duration: '4 years',
     test: 'CECOS / NTS / ETEA',
     interests: ['Medical & Health'],
-    backgrounds: ['Pre-Medical', 'A-Levels'],
+    backgrounds: ['Pre-Medical'],
     level: 'UG'
   },
   {
@@ -387,7 +383,7 @@ export const programs: Program[] = [
     duration: '4 years',
     test: 'CECOS / NTS / ETEA',
     interests: ['Medical & Health'],
-    backgrounds: ['Pre-Medical', 'A-Levels'],
+    backgrounds: ['Pre-Medical'],
     level: 'UG'
   },
   {
@@ -398,7 +394,7 @@ export const programs: Program[] = [
     duration: '4 years',
     test: 'CECOS / NTS / ETEA',
     interests: ['Medical & Health'],
-    backgrounds: ['Pre-Medical', 'A-Levels'],
+    backgrounds: ['Pre-Medical'],
     level: 'UG'
   },
   {
@@ -409,20 +405,33 @@ export const programs: Program[] = [
     duration: '4 years',
     test: 'CECOS / NTS / ETEA',
     interests: ['Medical & Health'],
-    backgrounds: ['Pre-Medical', 'A-Levels'],
+    backgrounds: ['Pre-Medical'],
     level: 'UG'
   },
 
-  // Postgrad (Groups 6–9) — only show to PG background
+  // Postgrad (Groups 6–9)
   {
     id: 'ms-civil',
     name: 'MS Civil Engineering',
     group: 6,
     minPercent: 60,
+    minCGPA: 2.0,
     duration: '2 years',
-    test: 'CECOS / NTS / ETEA',
+    test: 'CECOS GAT-General / NTS / ETEA',
     interests: ['Engineering'],
-    backgrounds: ['Postgraduate'],
+    backgrounds: ['16-Year BS Engineering'],
+    level: 'PG'
+  },
+  {
+    id: 'ms-mechanical',
+    name: 'MS Mechanical Engineering',
+    group: 6,
+    minPercent: 60,
+    minCGPA: 2.0,
+    duration: '2 years',
+    test: 'CECOS GAT-General / NTS / ETEA',
+    interests: ['Engineering'],
+    backgrounds: ['16-Year BS Engineering'],
     level: 'PG'
   },
   {
@@ -430,76 +439,234 @@ export const programs: Program[] = [
     name: 'MS Electrical Engineering',
     group: 6,
     minPercent: 60,
+    minCGPA: 2.0,
     duration: '2 years',
-    test: 'CECOS / NTS / ETEA',
+    test: 'CECOS GAT-General / NTS / ETEA',
     interests: ['Engineering'],
-    backgrounds: ['Postgraduate'],
+    backgrounds: ['16-Year BS Engineering'],
     level: 'PG'
   },
   {
-    id: 'mba',
-    name: 'MBA',
+    id: 'ms-management-sciences',
+    name: 'MS Management Sciences',
     group: 7,
-    minPercent: 50,
+    minPercent: 60,
+    minCGPA: 2.0,
     duration: '2 years',
-    test: 'CECOS / NTS / ETEA',
+    test: 'CECOS GAT-General / NTS / ETEA',
     interests: ['Business'],
-    backgrounds: ['Postgraduate'],
+    backgrounds: ['16-Year BBA / Business degree'],
     level: 'PG'
   },
   {
-    id: 'ms-arch',
-    name: 'MS Architecture',
+    id: 'mba-business-stream',
+    name: 'MBA (Business Stream)',
     group: 7,
-    minPercent: 50,
+    minPercent: 60,
+    minCGPA: 2.0,
     duration: '2 years',
-    test: 'CECOS / NTS / ETEA',
-    interests: ['Architecture'],
-    backgrounds: ['Postgraduate'],
+    test: 'CECOS GAT-General / NTS / ETEA',
+    interests: ['Business'],
+    backgrounds: ['16-Year BBA / Business degree'],
     level: 'PG'
   },
   {
-    id: 'ms-cs',
+    id: 'mba-non-business',
+    name: 'MBA (Non-Business)',
+    group: 7,
+    minPercent: 60,
+    minCGPA: 2.0,
+    duration: '2 years',
+    test: 'CECOS GAT-General / NTS / ETEA',
+    interests: ['Business'],
+    backgrounds: [
+      '16-Year BS Engineering',
+      '16-Year BS CS/SE/Software',
+      '16-Year BBA / Business degree',
+      '16-Year PharmD (Pharmacy)',
+      '16-Year BS Tech / Technology',
+      '16-Year BS Sciences / Bio',
+      '16-Year BS Math',
+      '16-Year BS Any field'
+    ],
+    level: 'PG'
+  },
+  {
+    id: 'ms-project-management',
+    name: 'MS Project Management',
+    group: 7,
+    minPercent: 60,
+    minCGPA: 2.0,
+    duration: '2 years',
+    test: 'CECOS GAT-General / NTS / ETEA',
+    interests: ['Business'],
+    backgrounds: [
+      '16-Year BS Engineering',
+      '16-Year BS CS/SE/Software',
+      '16-Year BBA / Business degree',
+      '16-Year PharmD (Pharmacy)',
+      '16-Year BS Tech / Technology',
+      '16-Year BS Sciences / Bio',
+      '16-Year BS Math',
+      '16-Year BS Any field'
+    ],
+    level: 'PG'
+  },
+  {
+    id: 'ms-computer-science',
     name: 'MS Computer Science',
     group: 8,
-    minPercent: 50,
+    minPercent: 60,
+    minCGPA: 2.0,
     duration: '2 years',
-    test: 'CECOS / NTS / ETEA',
+    test: 'CECOS GAT-General / NTS / ETEA',
     interests: ['Computer Science', 'AI / Robotics'],
-    backgrounds: ['Postgraduate'],
+    backgrounds: ['16-Year BS CS/SE/Software'],
     level: 'PG'
   },
   {
-    id: 'ms-se',
+    id: 'ms-software-engineering',
     name: 'MS Software Engineering',
     group: 8,
-    minPercent: 50,
+    minPercent: 60,
+    minCGPA: 2.0,
     duration: '2 years',
-    test: 'CECOS / NTS / ETEA',
+    test: 'CECOS GAT-General / NTS / ETEA',
     interests: ['Computer Science'],
-    backgrounds: ['Postgraduate'],
+    backgrounds: ['16-Year BS CS/SE/Software'],
     level: 'PG'
   },
   {
-    id: 'ms-pharm',
+    id: 'm-architecture',
+    name: 'M. Architecture',
+    group: 7,
+    minPercent: 60,
+    minCGPA: 2.0,
+    duration: '2 years',
+    test: 'CECOS GAT-General / NTS / ETEA',
+    interests: ['Architecture'],
+    backgrounds: ['16-Year BS Engineering'],
+    level: 'PG'
+  },
+  {
+    id: 'ms-biotechnology',
+    name: 'MS Biotechnology',
+    group: 9,
+    minPercent: 60,
+    minCGPA: 2.0,
+    duration: '2 years',
+    test: 'CECOS GAT-General / NTS / ETEA',
+    interests: ['Medical & Health'],
+    backgrounds: ['16-Year BS Sciences / Bio'],
+    level: 'PG'
+  },
+  {
+    id: 'ms-pharmacy',
     name: 'MS Pharmacy',
     group: 9,
-    minPercent: 50,
+    minPercent: 60,
+    minCGPA: 2.0,
     duration: '2 years',
-    test: 'CECOS / NTS / ETEA',
+    test: 'CECOS GAT-General / NTS / ETEA',
     interests: ['Medical & Health'],
-    backgrounds: ['Postgraduate'],
+    backgrounds: ['16-Year PharmD (Pharmacy)'],
     level: 'PG'
   },
   {
-    id: 'ms-math',
+    id: 'ms-mathematics',
     name: 'MS Mathematics',
     group: 9,
-    minPercent: 50,
+    minPercent: 60,
+    minCGPA: 2.0,
     duration: '2 years',
-    test: 'CECOS / NTS / ETEA',
+    test: 'CECOS GAT-General / NTS / ETEA',
     interests: ['Mathematics'],
-    backgrounds: ['Postgraduate'],
+    backgrounds: ['16-Year BS Math'],
+    level: 'PG'
+  },
+  {
+    id: 'm-tech',
+    name: 'Master of Technology (M. Tech)',
+    group: 6,
+    minPercent: 60,
+    minCGPA: 2.0,
+    duration: '2 years',
+    test: 'CECOS GAT-General / NTS / ETEA',
+    interests: ['Engineering'],
+    backgrounds: ['16-Year BS Tech / Technology'],
+    level: 'PG'
+  },
+  // PhD Programs
+  {
+    id: 'phd-civil',
+    name: 'Ph.D. Civil Engineering',
+    group: 6,
+    minPercent: 70,
+    minCGPA: 3.0,
+    duration: '3-5 years',
+    test: 'CECOS Subject Test / HEC',
+    interests: ['Engineering'],
+    backgrounds: ['18-Year MS/MPhil Degree'],
+    level: 'PG'
+  },
+  {
+    id: 'phd-electrical',
+    name: 'Ph.D. Electrical Engineering',
+    group: 6,
+    minPercent: 70,
+    minCGPA: 3.0,
+    duration: '3-5 years',
+    test: 'CECOS Subject Test / HEC',
+    interests: ['Engineering'],
+    backgrounds: ['18-Year MS/MPhil Degree'],
+    level: 'PG'
+  },
+  {
+    id: 'phd-management',
+    name: 'Ph.D. Management Sciences',
+    group: 7,
+    minPercent: 70,
+    minCGPA: 3.0,
+    duration: '3-5 years',
+    test: 'CECOS Subject Test / HEC',
+    interests: ['Business'],
+    backgrounds: ['18-Year MS/MPhil Degree'],
+    level: 'PG'
+  },
+  {
+    id: 'phd-math',
+    name: 'Ph.D. Mathematics',
+    group: 9,
+    minPercent: 70,
+    minCGPA: 3.0,
+    duration: '3-5 years',
+    test: 'CECOS Subject Test / HEC',
+    interests: ['Mathematics'],
+    backgrounds: ['18-Year MS/MPhil Degree'],
+    level: 'PG'
+  },
+  {
+    id: 'phd-cs',
+    name: 'Ph.D. Computer Science',
+    group: 8,
+    minPercent: 70,
+    minCGPA: 3.0,
+    duration: '3-5 years',
+    test: 'CECOS Subject Test / HEC',
+    interests: ['Computer Science', 'AI / Robotics'],
+    backgrounds: ['18-Year MS/MPhil Degree'],
+    level: 'PG'
+  },
+  {
+    id: 'phd-pharmacy',
+    name: 'Ph.D. Pharmacy',
+    group: 9,
+    minPercent: 70,
+    minCGPA: 3.0,
+    duration: '3-5 years',
+    test: 'CECOS Subject Test / HEC',
+    interests: ['Medical & Health'],
+    backgrounds: ['18-Year MS/MPhil Degree'],
     level: 'PG'
   }];
 
@@ -630,7 +797,15 @@ export const backgroundOptions = [
   'ICS',
   'FA / Arts & Humanities',
   'Diploma of Associate Engineer',
-  'A-Levels'] as
+  '16-Year BS Engineering',
+  '16-Year BS CS/SE/Software',
+  '16-Year BBA / Business degree',
+  '16-Year PharmD (Pharmacy)',
+  '16-Year BS Tech / Technology',
+  '16-Year BS Sciences / Bio',
+  '16-Year BS Math',
+  '16-Year BS Any field',
+  '18-Year MS/MPhil Degree'] as
   const;
 
 export const interestOptions = [
@@ -746,7 +921,7 @@ export const scholarships: Scholarship[] = [
   },
   {
     name: 'Need Based Scholarship',
-    reduction: 'Case-by-case',
+    reduction: 'up to 100%',
     description: 'Financial assistance will be offered in financial hardship cases.',
     tag: 'Need-based',
     categories: ['need']
@@ -874,16 +1049,6 @@ export const faqs: Faq[] = [
     a: {
       en: 'Only for BSc Engineering programs (Civil, Electrical, Mechanical). Other programs use the CECOS entrance test or accept NTS/ETEA scores.',
       ur: 'صرف BSc انجینئرنگ پروگرامز کے لیے (سول، الیکٹریکل، میکانیکل)۔ باقی پروگرامز CECOS داخلہ ٹیسٹ یا NTS/ETEA قبول کرتے ہیں۔'
-    }
-  },
-  {
-    q: {
-      en: 'Can I apply in Urdu?',
-      ur: 'کیا میں اردو میں درخواست دے سکتا ہوں؟'
-    },
-    a: {
-      en: 'Yes. Toggle to اردو at the top of any page. Every field has tooltips in both languages.',
-      ur: 'جی ہاں۔ صفحے کے اوپر اردو پر سوئچ کریں۔ ہر فیلڈ کے ٹول ٹپس دونوں زبانوں میں ہیں۔'
     }
   },
   {

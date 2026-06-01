@@ -4,21 +4,29 @@ import { Link } from 'react-router-dom';
 import { useT } from '../lib/i18n';
 import { Button } from './ui/Button';
 import { Reveal } from './ui/Reveal';
+import { useAdmissionData } from '../lib/AdmissionDataContext';
 export function FinalCTA() {
   const { t } = useT();
+  const { sessionLabel } = useAdmissionData();
+
+  // Dynamic eyebrow: "FALL 2026 ADMISSIONS" from Supabase
+  const eyebrowText = sessionLabel
+    ? `${sessionLabel.toUpperCase()} ADMISSIONS`
+    : t('final.eyebrow');
+
   return (
-    <section id="apply" className="bg-black text-white relative overflow-hidden">
+    <section id="apply" className="bg-[#1A1612] text-white relative overflow-hidden">
       <div className="absolute inset-0 z-0">
         <img src="/assets/landscape-image-of-graduation-ceremony.png" alt="Graduation Ceremony Desktop" className="hidden md:block w-full h-full object-cover opacity-70" />
         <img src="/assets/portrait-image-of-graduation-ceremony.png" alt="Graduation Ceremony Mobile" className="block md:hidden w-full h-full object-cover opacity-70" />
-        <div className="absolute inset-0 bg-black/50"></div>
+        <div className="absolute inset-0 bg-[#1A1612]/50"></div>
       </div>
       <div className="relative z-10 mx-auto max-w-[1000px] px-5 md:px-8 py-20 md:py-28 text-center">
         <Reveal>
           <div className="inline-flex items-center gap-2 bg-white/[0.08] border border-white/10 rounded-full px-3 py-1.5 mb-8 keep-ltr">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#D97706]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#F4D58D]" />
             <span className="text-[12px] tracking-[0.14em] font-medium text-white/85">
-              {t('final.eyebrow')}
+              {eyebrowText}
             </span>
           </div>
           <h2 className="display-tight font-semibold text-white text-[40px] sm:text-[56px] md:text-[72px] tracking-tight">
@@ -30,7 +38,7 @@ export function FinalCTA() {
               href="#apply"
               variant="primary"
               size="lg"
-              className="!h-14 !px-7 group">
+              className="group">
 
               {t('hero.cta1')}
               <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform rtl:rotate-180" />

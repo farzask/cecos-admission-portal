@@ -20,17 +20,17 @@ export function Testimonials() {
   }, [paused, reduce]);
   const current = testimonials[idx];
   return (
-    <section id="stories" className="bg-[#F3F5F9]">
+    <section id="stories" className="bg-white border-t border-[#E2DBCF]">
       <div className="mx-auto max-w-[1200px] px-5 md:px-8 py-16 md:py-24">
         <Reveal>
           <div className="max-w-[760px] mb-10 md:mb-12">
-            <div className="text-[#666666] text-[13px] uppercase tracking-[0.14em] font-medium mb-3 keep-ltr">
+            <div className="text-[#5A524A] text-[13px] uppercase tracking-[0.14em] font-medium mb-3 keep-ltr">
               Graduate stories
             </div>
-            <h2 className="display-tight font-semibold text-black text-[34px] md:text-[46px] tracking-tight">
+            <h2 className="display-tight font-semibold text-[#1A1612] text-[34px] md:text-[46px] tracking-tight">
               {t('stories.title')}
             </h2>
-            <p className="mt-4 text-[#666666] text-[16px] md:text-[18px]">
+            <p className="mt-4 text-[#5A524A] text-[16px] md:text-[18px]">
               {t('stories.sub')}
             </p>
           </div>
@@ -41,7 +41,7 @@ export function Testimonials() {
             ref={ref}
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
-            className="relative bg-white rounded-[28px] border border-[#E5E7EB] overflow-hidden shadow-surface">
+            className="relative bg-white rounded-[28px] border border-[#E2DBCF] overflow-hidden shadow-surface">
 
             <div className="grid md:grid-cols-12">
               <div className="relative md:col-span-5 text-white flex flex-col justify-end min-h-[360px] md:min-h-[460px] overflow-hidden">
@@ -57,9 +57,9 @@ export function Testimonials() {
                     {current.image ? (
                       <img src={current.image} alt={current.name} className="w-full h-full object-cover" />
                     ) : (
-                      <div className="w-full h-full bg-black"></div>
+                      <div className="w-full h-full bg-[#1A1612]"></div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#1A1612]/90 via-[#1A1612]/40 to-transparent"></div>
                   </motion.div>
                 </AnimatePresence>
 
@@ -143,8 +143,8 @@ export function Testimonials() {
                       duration: 0.35
                     }}>
 
-                    <Quote className="w-6 h-6 text-[#a81e24] mb-6" />
-                    <blockquote className="text-black text-[22px] md:text-[28px] font-semibold leading-snug tracking-tight">
+                    <Quote className="w-6 h-6 text-[#7A1818] mb-6" />
+                    <blockquote className="text-[#1A1612] text-[22px] md:text-[28px] font-semibold leading-snug tracking-tight">
                       {current.quote}
                     </blockquote>
                   </motion.div>

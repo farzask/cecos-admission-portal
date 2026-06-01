@@ -11,27 +11,45 @@ import { useT } from '../lib/i18n';
 import { Button } from './ui/Button';
 import { Countdown } from './Countdown';
 import { phase1ClosesAt } from '../lib/data';
+import { useAdmissionData } from '../lib/AdmissionDataContext';
+
 export function Hero() {
-  const { t } = useT();
+  const { t, lang } = useT();
+  const { countdownTarget, sessionLabel } = useAdmissionData();
+
+  // Fall back to static date when Supabase isn't configured or still loading
+  const targetDate = countdownTarget ?? phase1ClosesAt;
+
+  // Dynamic eyebrow text: "Fall 2026 admissions are open"
+  const eyebrowText = sessionLabel
+    ? lang === 'ur'
+      ? `${sessionLabel} کے داخلے کھل چکے ہیں`
+      : `${sessionLabel} admissions are open`
+    : t('hero.eyebrow');
+
+  // Dynamic countdown label
+  const countdownLabel = lang === 'ur' ? 'داخلے بند ہونے میں' : 'Admissions close in';
+
   return (
-    <section id="top" className="bg-black text-white overflow-hidden relative">
+    <section id="top" className="bg-[#1A1612] text-white overflow-hidden relative">
       <div className="absolute inset-0 z-0">
         <img src="/assets/landscape-image-of-CECOS-building.png" alt="CECOS Campus Desktop" className="hidden md:block w-full h-full object-cover opacity-50" />
         <img src="/assets/portrait-image--of-CECOS.png" alt="CECOS Campus Mobile" className="block md:hidden w-full h-full object-cover opacity-50" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#1A1612] via-[#1A1612]/70 to-transparent"></div>
       </div>
       <div className="relative z-10 mx-auto max-w-[1200px] px-5 md:px-8 pt-12 pb-16 md:pt-20 md:pb-24 lg:pt-24 lg:pb-28">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-start">
           {/* Left: copy */}
           <div className="lg:col-span-7">
-            <div className="inline-flex items-center gap-2 bg-white/[0.08] border border-white/10 rounded-full px-3 py-1.5 mb-6">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#D97706]" />
-              <span className="text-[13px] text-white/85">
-                {t('hero.eyebrow')}
-              </span>
+            {/* Sand Sticker signature */}
+            <div 
+              className="inline-flex items-center justify-center bg-[#F4D58D] text-[#1A1612] font-mono text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-md shadow-sm select-none mb-6 relative z-10"
+              style={{ transform: 'rotate(-2deg)' }}
+            >
+              ✨ {eyebrowText}
             </div>
 
-            <h1 className="display-tight font-semibold text-white text-[40px] sm:text-[52px] md:text-[64px] lg:text-[76px] whitespace-pre-line">
+            <h1 className="display-tight font-display font-normal italic text-white text-[40px] sm:text-[52px] md:text-[64px] lg:text-[76px] whitespace-pre-line">
               {t('hero.title')}
             </h1>
 
@@ -45,8 +63,8 @@ export function Hero() {
                 href="#apply"
                 variant="primary"
                 size="lg"
-                className="!h-12 sm:!h-14 group">
-                
+                className="group">
+
                 {t('hero.cta1')}
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 rtl:rotate-180" />
               </Button>
@@ -55,8 +73,8 @@ export function Hero() {
                 href="#find"
                 variant="ghost"
                 size="lg"
-                className="!h-12 sm:!h-14">
-                
+                className="">
+
                 {t('hero.cta2')}
               </Button>
             </div>
@@ -88,7 +106,10 @@ export function Hero() {
 
           {/* Right: countdown */}
           <div className="lg:col-span-5 lg:pl-4">
-            <Countdown target={phase1ClosesAt} />
+            <Countdown
+              target={targetDate}
+              label={countdownTarget ? countdownLabel : undefined}
+            />
           </div>
         </div>
       </div>

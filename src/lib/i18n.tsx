@@ -3,9 +3,9 @@ import React, {
   useMemo,
   useState,
   createContext,
-  useContext
-} from
-  'react';
+  useContext,
+  ReactNode
+} from 'react';
 type Lang = 'en' | 'ur';
 type Dict = Record<
   string,
@@ -53,7 +53,7 @@ export const dict: Dict = {
     ur: 'آپ کی CECOS درخواست۔\n5 منٹ میں مکمل۔'
   },
   'hero.sub': {
-    en: 'Apply online or visit our campus. Same form, in English or Urdu.',
+    en: 'Apply online or visit our campus. Same form, five minutes to complete.',
     ur: 'اپنے فون سے درخواست دیں یا ہمارے حیات آباد کیمپس آئیں۔ ایک ہی فارم، انگریزی یا اردو میں۔'
   },
   'hero.cta1': {
@@ -85,8 +85,8 @@ export const dict: Dict = {
     ur: 'ISO 9001 تصدیق شدہ'
   },
   'cd.label': {
-    en: 'Phase 1 closes in',
-    ur: 'فیز 1 ختم ہونے میں'
+    en: 'Admission closes in',
+    ur: 'داخلے بند ہونے میں'
   },
   'cd.sub': {
     en: 'Phase 2 opens at PKR 500 for returning applicants.',
@@ -305,7 +305,7 @@ export const dict: Dict = {
     ur: 'سائن اپ کریں اور فارم شروع کریں'
   },
   'how.1.d': {
-    en: 'Phone + CNIC, verified by OTP in seconds. Then a short personal and academic section — tooltips in English & Urdu.',
+    en: 'Phone + CNIC, verified by OTP in seconds. Then a short personal and academic section with helpful tooltips.',
     ur: 'فون + شناختی کارڈ، چند سیکنڈ میں OTP سے تصدیق۔ پھر مختصر ذاتی اور تعلیمی معلومات — ٹول ٹپس انگریزی اور اردو میں۔'
   },
   'how.2.t': {
@@ -337,7 +337,7 @@ export const dict: Dict = {
     ur: 'فال 2026 داخلے'
   },
   'final.title': {
-    en: '5 minutes. One form. Your future at CECOS.',
+    en: 'Begin your journey with CECOS University',
     ur: '5 منٹ۔ ایک فارم۔ CECOS میں آپ کا مستقبل۔'
   },
   'final.sub': {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 type Props = {
   children: ReactNode;

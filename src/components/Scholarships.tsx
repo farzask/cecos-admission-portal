@@ -46,14 +46,14 @@ export function Scholarships() {
       <div className="mx-auto max-w-[1200px] px-5 md:px-8 py-16 md:py-24">
         <Reveal>
           <div className="max-w-[760px]">
-            <div className="inline-flex items-center gap-2 text-[#666666] text-[13px] uppercase tracking-[0.14em] mb-4">
+            <div className="inline-flex items-center gap-2 text-[#5A524A] text-[13px] uppercase tracking-[0.14em] mb-4">
               <Award className="w-3.5 h-3.5" />
               <span className="keep-ltr">Scholarships</span>
             </div>
-            <h2 className="display-tight font-semibold text-black text-[34px] md:text-[46px] tracking-tight">
+            <h2 className="display-tight font-semibold text-[#1A1612] text-[34px] md:text-[46px] tracking-tight">
               {t('sch.title')}
             </h2>
-            <p className="mt-4 text-[#666666] text-[16px] md:text-[18px]">
+            <p className="mt-4 text-[#5A524A] text-[16px] md:text-[18px]">
               {t('sch.sub')}
             </p>
           </div>
@@ -65,7 +65,7 @@ export function Scholarships() {
             <button
               key={c.id}
               onClick={() => setCat(c.id)}
-              className={`shrink-0 h-10 px-4 rounded-full text-[13px] font-medium border transition-colors ${cat === c.id ? 'bg-black text-white border-black' : 'bg-white text-black border-[#E5E7EB] hover:border-black'}`}>
+              className={`shrink-0 h-10 px-4 rounded-xl text-[13px] font-medium border transition-colors ${cat === c.id ? 'bg-[#7A1818] text-white border-[#7A1818]' : 'bg-white text-[#1A1612] border-[#E2DBCF] hover:border-[#1A1612]'}`}>
               
                 {c.label}
               </button>
@@ -95,19 +95,19 @@ export function Scholarships() {
                 duration: 0.25,
                 delay: Math.min(i * 0.03, 0.18)
               }}
-              className="p-6 rounded-[24px] bg-[#F3F5F9] border border-[#E5E7EB] flex flex-col">
+              className="p-6 rounded-[24px] bg-white border border-[#E2DBCF] flex flex-col">
               
-                <div className="num text-black text-[34px] md:text-[40px] font-semibold leading-none tracking-tight">
+                <div className="num text-[#1A1612] text-[34px] md:text-[40px] font-semibold leading-none tracking-tight">
                   {s.reduction}
                 </div>
-                <div className="mt-3 font-semibold text-black text-[16px]">
+                <div className="mt-3 font-semibold text-[#1A1612] text-[16px]">
                   {s.name}
                 </div>
-                <div className="mt-2 text-[14px] text-[#666666] flex-1">
+                <div className="mt-2 text-[14px] text-[#5A524A] flex-1">
                   {s.description}
                 </div>
-                <div className="mt-5 pt-4 border-t border-[#E5E7EB]/70 flex items-center justify-between">
-                  <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 h-6 rounded-full bg-white border border-[#E5E7EB] text-black">
+                <div className="mt-5 pt-4 border-t border-[#E2DBCF]/70 flex items-center justify-between">
+                  <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 h-6 rounded-full bg-white border border-[#E2DBCF] text-[#1A1612]">
                     {s.tag}
                   </span>
                 </div>
@@ -116,7 +116,7 @@ export function Scholarships() {
           </AnimatePresence>
         </div>
 
-        <div className="mt-8 text-[14px] text-[#666666]">
+        <div className="mt-8 text-[14px] text-[#5A524A]">
           {t('sch.footer').replace('→', '').trim()}
         </div>
       </div>

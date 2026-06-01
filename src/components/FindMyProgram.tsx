@@ -13,8 +13,12 @@ export function FindMyProgram() {
   const [background, setBackground] = useState<string | null>(null);
   const [marks, setMarks] = useState<number>(70);
   const [interests, setInterests] = useState<string[]>([]);
+  const isPG = useMemo(() => {
+    return background ? (background.startsWith('16-Year') || background.startsWith('18-Year')) : false;
+  }, [background]);
   const matches = useMemo(() => {
     if (!background) return [];
+    const isB_PG = background.startsWith('16-Year') || background.startsWith('18-Year');
     return programs.
     filter((p) => p.backgrounds.includes(background)).
     map((p) => {
@@ -22,9 +26,16 @@ export function FindMyProgram() {
       interests.length === 0 ||
       p.interests.some((i) => interests.includes(i));
       let status: 'eligible' | 'close' | 'no';
-      if (marks >= p.minPercent) status = 'eligible';else
-      if (marks >= p.minPercent - 5) status = 'close';else
-      status = 'no';
+      if (isB_PG) {
+        const threshold = p.minCGPA || 2.0;
+        if (marks >= threshold) status = 'eligible';else
+        if (marks >= threshold - 0.2) status = 'close';else
+        status = 'no';
+      } else {
+        if (marks >= p.minPercent) status = 'eligible';else
+        if (marks >= p.minPercent - 5) status = 'close';else
+        status = 'no';
+      }
       return {
         p,
         status,
@@ -56,33 +67,40 @@ export function FindMyProgram() {
     });
   }
   return (
-    <section id="find" className="bg-[#F3F5F9]">
+    <section id="find" className="bg-white border-t border-[#E2DBCF]">
       <div className="mx-auto max-w-[1200px] px-5 md:px-8 py-16 md:py-24">
         <Reveal>
           <div className="max-w-[760px]">
-            <div className="inline-flex items-center gap-2 text-[#a81e24] text-[13px] font-medium uppercase tracking-[0.14em] mb-4">
+            <div className="inline-flex items-center gap-2 text-[#7A1818] text-[13px] font-medium uppercase tracking-[0.14em] mb-4">
               <Sparkles className="w-3.5 h-3.5" />
               <span className="keep-ltr">Find my program</span>
             </div>
-            <h2 className="display-tight font-semibold text-black text-[34px] md:text-[46px] tracking-tight">
+            <h2 className="display-tight font-semibold text-[#1A1612] text-[34px] md:text-[46px] tracking-tight">
               {t('find.title')}
             </h2>
-            <p className="mt-4 text-[#666666] text-[16px] md:text-[18px] max-w-[600px]">
+            <p className="mt-4 text-[#5A524A] text-[16px] md:text-[18px] max-w-[600px]">
               {t('find.sub')}
             </p>
           </div>
         </Reveal>
 
         <Reveal delay={0.05}>
-          <div className="mt-10 md:mt-12 bg-white rounded-[28px] shadow-surface border border-[#E5E7EB] overflow-hidden">
+          <div className="mt-10 md:mt-12 bg-white rounded-[28px] shadow-surface border border-[#E2DBCF] relative overflow-visible">
+            {/* Dynamic Sand Sticker Badge */}
+            <div 
+              className="absolute -top-3 right-6 z-20 inline-flex items-center justify-center bg-[#F4D58D] text-[#1A1612] font-mono text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-md shadow-[0_2px_6px_rgba(26,22,18,0.08)] select-none transition-all duration-300"
+              style={{ transform: 'rotate(2.5deg)' }}
+            >
+              {step < 4 ? `STEP ${step} OF 3` : '✨ MATCHES FOUND'}
+            </div>
             {/* Stepper header */}
             {step < 4 &&
-            <div className="px-6 md:px-10 pt-6 md:pt-8 border-b border-[#F0F0F2]">
+            <div className="px-6 md:px-10 pt-6 md:pt-8 border-b border-[#EFE9DD]">
                 <div className="flex items-center gap-3 mb-5">
                   {[1, 2, 3].map((s) =>
                 <div key={s} className="flex items-center gap-3 flex-1">
                       <div
-                    className={`w-7 h-7 rounded-full grid place-items-center text-[12px] font-semibold transition-colors ${step >= (s as Step) ? 'bg-[#a81e24] text-white' : 'bg-[#F3F5F9] text-[#666666] border border-[#E5E7EB]'}`}>
+                    className={`w-7 h-7 rounded-full grid place-items-center text-[12px] font-semibold transition-colors ${step >= (s as Step) ? 'bg-[#7A1818] text-white' : 'bg-white text-[#5A524A] border border-[#E2DBCF]'}`}>
                     
                         {step > s ?
                     <Check className="w-3.5 h-3.5" /> :
@@ -92,7 +110,7 @@ export function FindMyProgram() {
                       </div>
                       {s < 3 &&
                   <div
-                    className={`flex-1 h-px ${step > s ? 'bg-[#a81e24]' : 'bg-[#E5E7EB]'}`} />
+                    className={`flex-1 h-px ${step > s ? 'bg-[#7A1818]' : 'bg-[#E2DBCF]'}`} />
 
                   }
                     </div>
@@ -122,7 +140,7 @@ export function FindMyProgram() {
                     duration: 0.25
                   }}>
                   
-                    <h3 className="text-[22px] md:text-[26px] font-semibold text-black">
+                    <h3 className="text-[22px] md:text-[26px] font-semibold text-[#1A1612]">
                       {t('find.step1')}
                     </h3>
                     <div className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
@@ -131,11 +149,13 @@ export function FindMyProgram() {
                       key={b}
                       onClick={() => {
                         setBackground(b);
+                        const isB_PG = b.startsWith('16-Year') || b.startsWith('18-Year');
+                        setMarks(isB_PG ? 3.0 : 70);
                         setTimeout(() => setStep(2), 180);
                       }}
-                      className={`text-start p-4 rounded-2xl border transition-all min-h-[88px] ${background === b ? 'border-[#a81e24] bg-[#a81e24]/[0.05] ring-2 ring-[#a81e24]/20' : 'border-[#E5E7EB] hover:border-black/30 bg-white'}`}>
+                      className={`text-start p-4 rounded-2xl border transition-all min-h-[88px] ${background === b ? 'border-[#7A1818] bg-[#7A1818]/[0.05] ring-2 ring-[#7A1818]/20' : 'border-[#E2DBCF] hover:border-[#1A1612]/30 bg-white'}`}>
                       
-                          <div className="font-semibold text-[15px] text-black">
+                          <div className="font-semibold text-[15px] text-[#1A1612]">
                             {b}
                           </div>
                         </button>
@@ -163,49 +183,49 @@ export function FindMyProgram() {
                     duration: 0.25
                   }}>
                   
-                    <h3 className="text-[22px] md:text-[26px] font-semibold text-black">
-                      {t('find.step2')}
+                    <h3 className="text-[22px] md:text-[26px] font-semibold text-[#1A1612]">
+                      {isPG ? "What was your CGPA?" : t('find.step2')}
                     </h3>
-                    <p className="mt-3 text-[#666666] text-[15px]">
-                      {t('find.step2.help')}
+                    <p className="mt-3 text-[#5A524A] text-[15px]">
+                      {isPG ? "Most CECOS postgraduate programs need 2.0+ CGPA. PhD programs need 3.0+ CGPA." : t('find.step2.help')}
                     </p>
 
                     <div className="mt-8 max-w-[520px]">
                       <div className="flex items-end justify-between mb-3">
-                        <span className="num text-[48px] md:text-[64px] font-semibold leading-none text-black tabular-nums">
-                          {marks}
-                          <span className="text-[#a81e24]">%</span>
+                        <span className="num text-[48px] md:text-[64px] font-semibold leading-none text-[#1A1612] tabular-nums">
+                          {isPG ? marks.toFixed(1) : marks}
+                          <span className="text-[#7A1818]">{isPG ? ' CGPA' : '%'}</span>
                         </span>
                         <input
                         type="number"
-                        min={40}
-                        max={100}
+                        min={isPG ? 2.0 : 40}
+                        max={isPG ? 4.0 : 100}
+                        step={isPG ? 0.1 : 1}
                         value={marks}
-                        onChange={(e) =>
-                        setMarks(
-                          Math.max(
-                            40,
-                            Math.min(100, Number(e.target.value) || 0)
-                          )
-                        )
-                        }
-                        className="num w-20 h-10 px-3 rounded-full border border-[#D1D1D1] text-center text-[15px] focus:border-[#a81e24]" />
+                        onChange={(e) => {
+                          const val = Number(e.target.value) || 0;
+                          const minVal = isPG ? 2.0 : 40;
+                          const maxVal = isPG ? 4.0 : 100;
+                          setMarks(Math.max(minVal, Math.min(maxVal, val)));
+                        }}
+                        className="num w-20 h-10 px-3 rounded-xl border border-[#E2DBCF] text-center text-[15px] focus:border-[#C42828] focus:ring-4 focus:ring-[#C42828]/12 transition-all outline-none" />
                       
                       </div>
                       <input
                       type="range"
-                      min={40}
-                      max={100}
+                      min={isPG ? 2.0 : 40}
+                      max={isPG ? 4.0 : 100}
+                      step={isPG ? 0.1 : 1}
                       value={marks}
                       onChange={(e) => setMarks(Number(e.target.value))}
-                      className="w-full accent-[#a81e24]"
+                      className="w-full accent-[#7A1818]"
                       style={{
                         direction: 'ltr'
                       }} />
                     
-                      <div className="flex justify-between mt-2 text-[12px] text-[#666666] num">
-                        <span>40%</span>
-                        <span>100%</span>
+                      <div className="flex justify-between mt-2 text-[12px] text-[#5A524A] num">
+                        <span>{isPG ? '2.0 CGPA' : '40%'}</span>
+                        <span>{isPG ? '4.0 CGPA' : '100%'}</span>
                       </div>
                     </div>
                   </motion.div>
@@ -230,10 +250,10 @@ export function FindMyProgram() {
                     duration: 0.25
                   }}>
                   
-                    <h3 className="text-[22px] md:text-[26px] font-semibold text-black">
+                    <h3 className="text-[22px] md:text-[26px] font-semibold text-[#1A1612]">
                       {t('find.step3')}
                     </h3>
-                    <p className="mt-3 text-[#666666] text-[15px]">
+                    <p className="mt-3 text-[#5A524A] text-[15px]">
                       {t('find.step3.help')}{' '}
                       <span className="num">({interests.length}/3)</span>
                     </p>
@@ -247,7 +267,7 @@ export function FindMyProgram() {
                           key={i}
                           disabled={disabled}
                           onClick={() => toggleInterest(i)}
-                          className={`px-4 h-11 rounded-full border text-[14px] font-medium transition-all ${active ? 'bg-black text-white border-black' : disabled ? 'bg-white text-[#999] border-[#E5E7EB] cursor-not-allowed' : 'bg-white text-black border-[#E5E7EB] hover:border-black'}`}>
+                          className={`px-4 h-11 rounded-xl border text-[14px] font-medium transition-all ${active ? 'bg-[#7A1818] text-white border-[#7A1818]' : disabled ? 'bg-white text-[#9A9087] border-[#E2DBCF] cursor-not-allowed' : 'bg-white text-[#1A1612] border-[#E2DBCF] hover:border-[#1A1612]'}`}>
                           
                             {i}
                           </button>);
@@ -278,22 +298,22 @@ export function FindMyProgram() {
                   
                     <div className="flex items-start justify-between gap-4 flex-wrap">
                       <div>
-                        <div className="text-[#666666] text-[14px]">
+                        <div className="text-[#5A524A] text-[14px]">
                           {t('find.result')}
                         </div>
-                        <div className="display-tight font-semibold text-black text-[44px] md:text-[64px] leading-none mt-1">
+                        <div className="display-tight font-semibold text-[#1A1612] text-[44px] md:text-[64px] leading-none mt-1">
                           <CountUp
                           to={eligibleCount}
-                          className="text-[#a81e24]" />
+                          className="text-[#7A1818]" />
                         {' '}
-                          <span className="text-[24px] md:text-[28px] font-medium text-black/80">
+                          <span className="text-[24px] md:text-[28px] font-medium text-[#1A1612]/80">
                             {t('find.programs')}
                           </span>
                         </div>
                       </div>
                       <button
                       onClick={reset}
-                      className="inline-flex items-center gap-2 text-[14px] text-[#666666] hover:text-black h-10">
+                      className="inline-flex items-center gap-2 text-[14px] text-[#5A524A] hover:text-[#1A1612] h-10">
                       
                         <RotateCcw className="w-3.5 h-3.5" />
                         {t('find.restart')}
@@ -304,22 +324,22 @@ export function FindMyProgram() {
                       {matches.map(({ p, status }) =>
                     <div
                       key={p.id}
-                      className={`p-4 rounded-2xl border bg-white transition-all ${status === 'eligible' ? 'border-[#E5E7EB]' : status === 'close' ? 'border-[#E5E7EB]' : 'border-[#E5E7EB] opacity-60'}`}>
+                      className={`p-4 rounded-2xl border bg-white transition-all ${status === 'eligible' ? 'border-[#E2DBCF]' : status === 'close' ? 'border-[#E2DBCF]' : 'border-[#E2DBCF] opacity-60'}`}>
                       
                           <div className="flex items-start justify-between gap-2">
                             <div>
-                              <div className="text-[11px] text-[#666666] uppercase tracking-wider">
+                              <div className="text-[11px] text-[#5A524A] uppercase tracking-wider">
                                 {t('programs.group')}{' '}
                                 <span className="num">{p.group}</span>
                               </div>
-                              <div className="font-semibold text-black text-[15px] mt-1 leading-snug">
+                              <div className="font-semibold text-[#1A1612] text-[15px] mt-1 leading-snug">
                                 {p.name}
                               </div>
                             </div>
                           </div>
                           <div className="mt-3 flex items-center justify-between gap-2">
-                            <div className="text-[12px] text-[#666666]">
-                              Min <span className="num">{p.minPercent}%</span>
+                            <div className="text-[12px] text-[#5A524A]">
+                              Min <span className="num">{isPG ? `${p.minCGPA || 2.0} CGPA` : `${p.minPercent}%`}</span>
                             </div>
                             <StatusPill status={status} t={t} />
                           </div>
@@ -334,7 +354,7 @@ export function FindMyProgram() {
                       </Button>
                       <a
                       href="#programs"
-                      className="text-[14px] text-[#a81e24] hover:text-[#8f1920] font-medium">
+                      className="text-[14px] text-[#7A1818] hover:text-[#A82222] font-medium">
                       
                         {t('find.browseAll')}
                       </a>
@@ -347,9 +367,9 @@ export function FindMyProgram() {
               {step < 4 &&
               <div className="mt-auto pt-8 flex items-center justify-between">
                   <button
-                  onClick={() => setStep((s) => Math.max(1, s - 1 as Step))}
+                  onClick={() => setStep((s) => Math.max(1, s - 1) as Step)}
                   disabled={step === 1}
-                  className="inline-flex items-center gap-2 h-10 px-3 text-[14px] text-[#666666] hover:text-black disabled:opacity-30 disabled:hover:text-[#666666]">
+                  className="inline-flex items-center gap-2 h-10 px-3 text-[14px] text-[#5A524A] hover:text-[#1A1612] disabled:opacity-30 disabled:hover:text-[#5A524A]">
                   
                     <ArrowLeft className="w-4 h-4 rtl:rotate-180" />
                     {t('find.back')}
@@ -392,22 +412,22 @@ function StatusPill({
 }: {status: 'eligible' | 'close' | 'no';t: (k: string) => string;}) {
   if (status === 'eligible') {
     return (
-      <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 h-6 rounded-full bg-[#D97706]/15 text-black border border-[#D97706]/40">
-        <span className="w-1.5 h-1.5 rounded-full bg-[#D97706]" />
+      <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 h-6 rounded-full bg-[#F4D58D]/15 text-[#1A1612] border border-[#F4D58D]/40">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#F4D58D]" />
         {t('find.eligible')}
       </span>);
 
   }
   if (status === 'close') {
     return (
-      <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 h-6 rounded-full bg-black/5 text-black border border-black/10">
-        <span className="w-1.5 h-1.5 rounded-full bg-[#666666]" />
+      <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 h-6 rounded-full bg-[#1A1612]/5 text-[#1A1612] border border-[#1A1612]/10">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#5A524A]" />
         {t('find.close')}
       </span>);
 
   }
   return (
-    <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 h-6 rounded-full bg-[#F3F5F9] text-[#999] border border-[#E5E7EB]">
+    <span className="inline-flex items-center gap-1.5 text-[11px] font-semibold px-2.5 h-6 rounded-full bg-white text-[#9A9087] border border-[#E2DBCF]">
       {t('find.notEligible')}
     </span>);
 
