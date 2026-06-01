@@ -89,7 +89,7 @@ export const disciplineGroups: DisciplineGroup[] = [
   },
   {
     number: 6,
-    name: 'MS Programs',
+    name: 'Engineering',
     examples: [
       'MS (Civil - Structural Engineering)',
       'MS (Civil - Water resources & Environmental Engineering)',
@@ -99,21 +99,42 @@ export const disciplineGroups: DisciplineGroup[] = [
       'MS (Elect - Power & Control Engineering)',
       'MS Engineering Management',
       'MS Mechanical Engineering',
+    ],
+    test: 'CECOS / NTS / ETEA test'
+  },
+  {
+    number: 7,
+    name: 'Management, Design & Sciences',
+    examples: [
       'Master in Architecture',
       'MBA(Business)',
-      'MS Management Science (Finance, Marketing HRM)',
       'MBA(Non-Business)',
-      'MS Project Management',
       'MS Applied Mathematics',
+      'MS Management Science (Finance, Marketing HRM)',
+      'MS Project Management'],
+    test: 'CECOS / NTS / ETEA test'
+  },
+  {
+    number: 8,
+    name: 'Technologies',
+    examples: [
       'MS Computer Science',
       'MS Software Engineering',
+    ],
+    test: 'CECOS / NTS / ETEA test'
+  },
+  {
+    number: 9,
+    name: 'Medical Sciences',
+    examples: [
       'MS Biotechnology',
       'MS Pharmacy-Pharmaceutics',
       'MS Pharmacy-Pharmacology',
       'MS Pharmacy-Pharmacy Practice'
     ],
     test: 'CECOS / NTS / ETEA test'
-  }];
+  }
+];
 
 
 export type Program = {

@@ -186,9 +186,11 @@ export function FindMyProgram() {
                     <h3 className="text-[22px] md:text-[26px] font-semibold text-[#1A1612]">
                       {isPG ? "What was your CGPA?" : t('find.step2')}
                     </h3>
-                    <p className="mt-3 text-[#5A524A] text-[15px]">
-                      {isPG ? "Most CECOS postgraduate programs need 2.0+ CGPA. PhD programs need 3.0+ CGPA." : t('find.step2.help')}
-                    </p>
+                    {isPG && (
+                      <p className="mt-3 text-[#5A524A] text-[15px]">
+                        Most CECOS postgraduate programs need 2.0+ CGPA. PhD programs need 3.0+ CGPA.
+                      </p>
+                    )}
 
                     <div className="mt-8 max-w-[520px]">
                       <div className="flex items-end justify-between mb-3">

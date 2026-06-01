@@ -144,10 +144,6 @@ export const dict: Dict = {
     en: 'What excites you?',
     ur: 'آپ کو کیا پسند ہے؟'
   },
-  'find.step2.help': {
-    en: 'Most CECOS programs need 45%+. Engineering needs 60%+.',
-    ur: 'زیادہ تر CECOS پروگرامز کے لیے 45%+ درکار ہیں۔ انجینئرنگ کے لیے 60%+۔'
-  },
   'find.step3.help': {
     en: 'Pick up to 3.',
     ur: 'زیادہ سے زیادہ 3 منتخب کریں۔'

@@ -85,6 +85,11 @@ type GroupedDiscipline = {
   disciplines: DisciplineRow[];
 };
 
+// Map a discipline's group_number → category name using the `number` key in
+// disciplineGroups (data.ts). Falls back to the first discipline name if a
+// group_number has no matching entry.
+const groupLabelByNumber = new Map(disciplineGroups.map((g) => [g.number, g.name]));
+
 function groupByNumber(rows: DisciplineRow[]): GroupedDiscipline[] {
   const map = new Map<number, DisciplineRow[]>();
   for (const d of rows) {
@@ -96,7 +101,7 @@ function groupByNumber(rows: DisciplineRow[]): GroupedDiscipline[] {
     .sort(([a], [b]) => a - b)
     .map(([num, items]) => ({
       number: num,
-      name: items[0].name, // Use the first discipline name as group label — can be overridden
+      name: groupLabelByNumber.get(num) ?? items[0].name,
       disciplines: items,
     }));
 }
