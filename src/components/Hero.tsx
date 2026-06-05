@@ -5,8 +5,9 @@ import {
   ShieldCheck,
   Award,
   Users,
-  Calendar } from
-'lucide-react';
+  Calendar
+} from
+  'lucide-react';
 import { useT } from '../lib/i18n';
 import { Button } from './ui/Button';
 import { Countdown } from './Countdown';
@@ -15,7 +16,7 @@ import { useAdmissionData } from '../lib/AdmissionDataContext';
 
 export function Hero() {
   const { t, lang } = useT();
-  const { countdownTarget, sessionLabel } = useAdmissionData();
+  const { countdownTarget, sessionLabel, admissionLevel } = useAdmissionData();
 
   // Fall back to static date when Supabase isn't configured or still loading
   const targetDate = countdownTarget ?? phase1ClosesAt;
@@ -26,6 +27,15 @@ export function Hero() {
       ? `${sessionLabel} کے داخلے کھل چکے ہیں`
       : `${sessionLabel} admissions are open`
     : t('hero.eyebrow');
+
+  // Admission level badge label
+  const levelLabel = admissionLevel === 'ug'
+    ? (lang === 'ur' ? 'انڈرگریجویٹ' : 'Undergraduate')
+    : admissionLevel === 'pg'
+      ? (lang === 'ur' ? 'پوسٹ گریجویٹ' : 'Postgraduate')
+      : admissionLevel === 'both'
+        ? (lang === 'ur' ? 'انڈرگریجویٹ + پوسٹ گریجویٹ' : 'Undergraduate & Postgraduate')
+        : null;
 
   // Dynamic countdown label
   const countdownLabel = lang === 'ur' ? 'داخلے بند ہونے میں' : 'Admissions close in';
@@ -41,12 +51,20 @@ export function Hero() {
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-start">
           {/* Left: copy */}
           <div className="lg:col-span-7">
-            {/* Sand Sticker signature */}
-            <div 
-              className="inline-flex items-center justify-center bg-[#F4D58D] text-[#1A1612] font-mono text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-md shadow-sm select-none mb-6 relative z-10"
-              style={{ transform: 'rotate(-2deg)' }}
-            >
-              ✨ {eyebrowText}
+            {/* Sand Sticker + Level badge group */}
+            <div className="flex flex-col items-start gap-4 mb-6">
+              <div
+                className="inline-flex items-center justify-center bg-[#F4D58D] text-[#1A1612] font-mono text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-md shadow-sm select-none relative z-10"
+                style={{ transform: 'rotate(-2deg)' }}
+              >
+                ✨ {eyebrowText}
+              </div>
+              {levelLabel && (
+                <div className="inline-flex items-center gap-1.5 bg-white/[0.08] border border-white/15 text-white/85 text-[11px] font-medium uppercase tracking-wider px-3 py-1.5 rounded-md">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#F4D58D] animate-pulse flex-shrink-0" />
+                  {levelLabel} {lang === 'ur' ? 'داخلے' : 'Admissions'}
+                </div>
+              )}
             </div>
 
             <h1 className="display-tight font-display font-normal italic text-white text-[40px] sm:text-[52px] md:text-[64px] lg:text-[76px] whitespace-pre-line">
@@ -88,19 +106,19 @@ export function Hero() {
               <TrustItem
                 icon={<Calendar className="w-3.5 h-3.5" />}
                 label={t('hero.trust1')} />
-              
+
               <TrustItem
                 icon={<Users className="w-3.5 h-3.5" />}
                 label={t('hero.trust2')} />
-              
+
               <TrustItem
                 icon={<ShieldCheck className="w-3.5 h-3.5" />}
                 label={t('hero.trust3')} />
-              
+
               <TrustItem
                 icon={<Award className="w-3.5 h-3.5" />}
                 label={t('hero.trust4')} />
-              
+
             </div>
           </div>
 
@@ -116,7 +134,7 @@ export function Hero() {
     </section>);
 
 }
-function TrustItem({ icon, label }: {icon: React.ReactNode;label: string;}) {
+function TrustItem({ icon, label }: { icon: React.ReactNode; label: string; }) {
   return (
     <div className="flex items-center gap-2 text-white/70 text-[13px]">
       <span className="w-6 h-6 rounded-full bg-white/[0.06] border border-white/10 grid place-items-center text-white/70">

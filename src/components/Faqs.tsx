@@ -20,13 +20,24 @@ export function Faqs() {
     return faqs.map((f, i) => {
       // Override the "What's the application fee?" FAQ (index 2) with dynamic values
       if (i === 2 && (ugFee != null || pgFee != null)) {
-        const ugStr = ugFee != null ? `PKR ${formatPKR(ugFee)}` : 'PKR 1,500';
-        const pgStr = pgFee != null ? `PKR ${formatPKR(pgFee)}` : 'PKR 2,000';
+        // Only mention levels that are actually open — no misleading fallback amounts
+        const parts: string[] = [];
+        const partsUr: string[] = [];
+        if (ugFee != null) {
+          parts.push(`PKR ${formatPKR(ugFee)} for undergraduate`);
+          partsUr.push(`انڈرگریجویٹ کے لیے PKR ${formatPKR(ugFee)}`);
+        }
+        if (pgFee != null) {
+          parts.push(`PKR ${formatPKR(pgFee)} for postgraduate`);
+          partsUr.push(`پوسٹ گریجویٹ کے لیے PKR ${formatPKR(pgFee)}`);
+        }
+        const suffix = '. If you already applied in an earlier phase this year, the fee drops to PKR 500.';
+        const suffixUr = '۔ اگر آپ نے اسی سال پہلے درخواست دی ہے تو فیس PKR 500 رہ جاتی ہے۔';
         return {
           ...f,
           a: {
-            en: `${ugStr} for undergraduate, ${pgStr} for postgraduate. If you already applied in an earlier phase this year, the fee drops to PKR 500.`,
-            ur: `انڈرگریجویٹ کے لیے ${ugStr}، پوسٹ گریجویٹ کے لیے ${pgStr}۔ اگر آپ نے اسی سال پہلے درخواست دی ہے تو فیس PKR 500 رہ جاتی ہے۔`,
+            en: parts.join(', ') + suffix,
+            ur: partsUr.join('، ') + suffixUr,
           },
         };
       }

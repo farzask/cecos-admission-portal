@@ -42,6 +42,8 @@ export type DisciplineRow = {
 
 // ─── Context value ──────────────────────────────────────────────────────────
 
+export type AdmissionLevel = 'ug' | 'pg' | 'both' | null;
+
 export type AdmissionData = {
   /** The currently open/active cycles (may be one UG + one PG) */
   activeCycles: CycleRow[];
@@ -55,6 +57,8 @@ export type AdmissionData = {
   ugFee: number | null;
   /** Convenience: PG application fee from current phase */
   pgFee: number | null;
+  /** Which level(s) of admission are currently open */
+  admissionLevel: AdmissionLevel;
   /** Convenience: the soonest cycle end date (for countdown) */
   countdownTarget: Date | null;
   /** Convenience: program choices count from cycle */
@@ -74,6 +78,7 @@ const defaultValue: AdmissionData = {
   disciplines: [],
   ugFee: null,
   pgFee: null,
+  admissionLevel: null,
   countdownTarget: null,
   programChoicesCount: null,
   sessionLabel: null,
@@ -195,6 +200,13 @@ export function AdmissionDataProvider({ children }: { children: ReactNode }) {
           }
         }
 
+        // Derive which admission level(s) are open
+        const admissionLevel: AdmissionLevel =
+          ugFee != null && pgFee != null ? 'both'
+          : ugFee != null ? 'ug'
+          : pgFee != null ? 'pg'
+          : null;
+
         // Countdown target — the soonest cycle end_date among active cycles
         let countdownTarget: Date | null = null;
         if (activeCycles.length > 0) {
@@ -234,6 +246,7 @@ export function AdmissionDataProvider({ children }: { children: ReactNode }) {
           disciplines: disciplines ?? [],
           ugFee,
           pgFee,
+          admissionLevel,
           countdownTarget,
           programChoicesCount,
           sessionLabel,
