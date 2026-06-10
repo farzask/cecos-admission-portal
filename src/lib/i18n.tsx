@@ -357,8 +357,8 @@ export const dict: Dict = {
     ur: 'فیز 6، سیکٹر F-5، حیات آباد، پشاور'
   },
   'footer.hours': {
-    en: 'Office hours: Mon–Fri, 9:00 AM – 5:00 PM',
-    ur: 'دفتری اوقات: پیر–جمعہ، 9:00 AM – 5:00 PM'
+    en: 'Office hours: Mon–Fri, 8:30 AM – 4:30 PM',
+    ur: 'دفتری اوقات: پیر–جمعہ، 8:30 AM – 4:30 PM'
   },
   'footer.rights': {
     en: '© 2026 CECOS University. All rights reserved.',
