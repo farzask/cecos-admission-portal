@@ -102,16 +102,30 @@ export function Footer() {
               </li>
             </ul>
             <div className="mt-5 flex gap-2">
-              {[Facebook, Instagram, Linkedin].map((Icon, i) =>
               <a
-                key={i}
-                href="#"
+                href="https://www.facebook.com/cecosofficial/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full border border-[#E2DBCF] grid place-items-center text-[#1A1612] hover:bg-[#1A1612] hover:text-white hover:border-[#1A1612] transition-colors"
-                aria-label="Social link">
-                
-                  <Icon className="w-4 h-4" />
-                </a>
-              )}
+                aria-label="CECOS University on Facebook">
+                <Facebook className="w-4 h-4" />
+              </a>
+              <a
+                href="https://www.instagram.com/cecosofficial/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full border border-[#E2DBCF] grid place-items-center text-[#1A1612] hover:bg-[#1A1612] hover:text-white hover:border-[#1A1612] transition-colors"
+                aria-label="CECOS University on Instagram">
+                <Instagram className="w-4 h-4" />
+              </a>
+              <a
+                href="https://www.linkedin.com/school/cecos-university-of-information-technology-and-emerging-sciences/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full border border-[#E2DBCF] grid place-items-center text-[#1A1612] hover:bg-[#1A1612] hover:text-white hover:border-[#1A1612] transition-colors"
+                aria-label="CECOS University on LinkedIn">
+                <Linkedin className="w-4 h-4" />
+              </a>
             </div>
           </div>
         </div>
