@@ -3,7 +3,7 @@ import { Menu, X, GraduationCap } from 'lucide-react';
 import { useT } from '../lib/i18n';
 import { Button } from './ui/Button';
 export function Nav() {
-  const { t, lang, setLang } = useT();
+  const { t } = useT();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {

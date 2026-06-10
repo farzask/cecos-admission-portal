@@ -5,12 +5,9 @@ import {
   Mail,
   Facebook,
   Instagram,
-  Linkedin,
-  MessageCircle,
-  GraduationCap } from
+  Linkedin } from
 'lucide-react';
 import { useT } from '../lib/i18n';
-import { whatsappNumber } from '../lib/data';
 import { Link } from 'react-router-dom';
 
 export function Footer() {
@@ -21,13 +18,11 @@ export function Footer() {
         <div className="grid md:grid-cols-3 gap-10 md:gap-12">
           {/* Contact */}
           <div>
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-9 h-9 rounded-xl bg-[#7A1818] grid place-items-center">
-                <GraduationCap className="w-5 h-5 text-white" />
-              </div>
-              <span className="font-semibold text-[16px] text-[#1A1612]">
-                CECOS University
-              </span>
+            <div className="flex items-center mb-5">
+              <img
+                src="/assets/CECOS_orginal-1.png"
+                alt="CECOS University"
+                className="h-[42px] w-auto" />
             </div>
             <div className="font-semibold text-[13px] uppercase tracking-[0.14em] text-[#5A524A] mb-4 keep-ltr">
               {t('footer.contact')}
@@ -100,14 +95,9 @@ export function Footer() {
             <ul className="space-y-3 text-[14px] text-[#1A1612]">
               <li>{t('footer.hours')}</li>
               <li className="flex gap-3">
-                <MessageCircle className="w-4 h-4 text-[#5A524A] shrink-0 mt-0.5" />
-                <a
-                  href={`https://wa.me/${whatsappNumber}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="num hover:text-[#7A1818] keep-ltr">
-                  
-                  +{whatsappNumber.slice(0, 2)} {whatsappNumber.slice(2)}
+                <Phone className="w-4 h-4 text-[#5A524A] shrink-0 mt-0.5" />
+                <a href="tel:+92915864291" className="num hover:text-[#7A1818]">
+                  +92-91-5864291
                 </a>
               </li>
             </ul>
@@ -136,6 +126,18 @@ export function Footer() {
               {t('footer.terms')}
             </Link>
           </div>
+        </div>
+
+        <div className="mt-6 flex items-center justify-center gap-2 text-[12.5px] text-[#8A8178] keep-ltr">
+          <span className="hidden sm:inline-block h-px w-8 bg-[#E2DBCF]" />
+          <span className="text-center">
+            Crafted with care by{' '}
+            <span className="font-medium text-[#5A524A]">Farza Shahzad</span>,{' '}
+            <span className="font-medium text-[#5A524A]">Khuwaja Muhammad Momin</span>{' '}
+            &amp;{' '}
+            <span className="font-medium text-[#5A524A]">Dr. Maryam Mahsal Khan</span>
+          </span>
+          <span className="hidden sm:inline-block h-px w-8 bg-[#E2DBCF]" />
         </div>
       </div>
     </footer>);
