@@ -49,7 +49,7 @@ export function Hero() {
         <img src="/assets/portrait-image--of-CECOS.png" alt="CECOS Campus Mobile" className="block md:hidden w-full h-full object-cover opacity-50" />
         <div className="absolute inset-0 bg-linear-to-t from-[#1A1612] via-[#1A1612]/70 to-transparent"></div>
       </div>
-      <div className="relative z-10 mx-auto max-w-[1200px] px-5 md:px-8 pt-12 pb-16 md:pt-20 md:pb-24 lg:pt-24 lg:pb-28">
+      <div className="relative z-10 mx-auto max-w-[1200px] px-5 md:px-8 pt-6 pb-16 md:pt-12 md:pb-24 lg:pt-14 lg:pb-28">
         <div className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-start">
           {/* Left: copy */}
           <div className="lg:col-span-7">

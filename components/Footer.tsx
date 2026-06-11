@@ -145,21 +145,17 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-6 flex flex-col items-center gap-2">
-          <div className="flex items-center justify-center gap-2 text-[12.5px] text-[#8A8178] keep-ltr">
-            <span className="hidden sm:inline-block h-px w-8 bg-[#E2DBCF]" />
-            <span className="text-center">
-              {t('footer.crafted')}{' '}
-              <span className="font-medium text-[#5A524A]">Farza Shahzad</span>,{' '}
-              <span className="font-medium text-[#5A524A]">Khuwaja Muhammad Momin</span>{' '}
-              &amp;{' '}
-              <span className="font-medium text-[#5A524A]">Dr. Maryam Mahsal Khan</span>
-            </span>
-            <span className="hidden sm:inline-block h-px w-8 bg-[#E2DBCF]" />
-          </div>
-          <div className="text-[11.5px] text-[#9A9087] keep-ltr">
+        <div className="mt-6 flex flex-col items-center gap-1.5 text-center">
+          <div className="text-[12.5px] text-[#5A524A] keep-ltr">
             {t('footer.builtBy')}{' '}
             <span className="font-semibold text-fire-600">CDGAI</span>
+          </div>
+          <div className="text-[11.5px] text-[#8A8178] keep-ltr">
+            {t('footer.crafted')}{' '}
+            <span className="font-medium text-[#5A524A]">Farza Shahzad</span>,{' '}
+            <span className="font-medium text-[#5A524A]">Khuwaja Muhammad Momin</span>{' '}
+            &amp;{' '}
+            <span className="font-medium text-[#5A524A]">Dr. Maryam Mahsal Khan</span>
           </div>
         </div>
       </div>
