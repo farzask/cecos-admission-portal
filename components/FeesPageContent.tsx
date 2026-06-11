@@ -16,6 +16,7 @@ import { useSearchParams } from 'next/navigation';
 import { feeGroups, type FeeRow, type FeeGroup } from '@/lib/data';
 import { Reveal } from '@/components/ui/Reveal';
 import { Button } from '@/components/ui/Button';
+import { trackEvent, useTrackApply } from '@/lib/analytics';
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 function pkr(amount: number): string {
@@ -45,11 +46,34 @@ export function FeesPageContent() {
   );
 
   const inputRef = useRef<HTMLInputElement>(null);
+  const trackApply = useTrackApply();
 
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // Record arrival via a program "View fees" deep-link (point 4 filtering).
+  useEffect(() => {
+    if (initialGroup) {
+      trackEvent('fee_filter', {
+        group: parseInt(initialGroup, 10),
+        source: 'deeplink',
+      });
+    }
+    // Only on first mount, based on the incoming URL.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Debounced search tracking so we log settled queries, not every keystroke.
+  useEffect(() => {
+    const q = query.trim();
+    if (!q) return;
+    const id = setTimeout(() => {
+      trackEvent('fee_search', { query: q });
+    }, 700);
+    return () => clearTimeout(id);
+  }, [query]);
 
   const filtered = useMemo(() => {
     if (activeGroup) {
@@ -236,6 +260,7 @@ export function FeesPageContent() {
                       <div className="flex flex-col sm:flex-row gap-3">
                         <Button
                           href="/"
+                          onClick={() => trackApply('fees_page_card')}
                           variant="primary"
                           size="lg"
                           className="w-full sm:w-fit"

@@ -6,10 +6,15 @@ import { Award } from 'lucide-react';
 import { scholarships } from '../lib/data';
 import { useT } from '../lib/i18n';
 import { Reveal } from './ui/Reveal';
+import { trackEvent } from '../lib/analytics';
 type Cat = 'all' | 'merit' | 'female' | 'need' | 'regional' | 'family';
 export function Scholarships() {
   const { t } = useT();
   const [cat, setCat] = useState<Cat>('all');
+  function selectCat(next: Cat) {
+    if (next !== cat) trackEvent('scholarship_filter', { category: next });
+    setCat(next);
+  }
   const filtered = useMemo(() => {
     if (cat === 'all') return scholarships;
     return scholarships.filter((s) =>
@@ -68,7 +73,7 @@ export function Scholarships() {
             {chips.map((c) =>
               <button
                 key={c.id}
-                onClick={() => setCat(c.id)}
+                onClick={() => selectCat(c.id)}
                 className={`shrink-0 h-10 px-4 rounded-xl text-[13px] font-medium border transition-colors ${cat === c.id ? 'bg-[#7A1818] text-white border-[#7A1818]' : 'bg-white text-[#1A1612] border-[#E2DBCF] hover:border-[#1A1612]'}`}>
 
                 {c.label}

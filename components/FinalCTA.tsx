@@ -7,9 +7,11 @@ import { useT } from '../lib/i18n';
 import { Button } from './ui/Button';
 import { Reveal } from './ui/Reveal';
 import { useAdmissionData } from '../lib/AdmissionDataContext';
+import { useTrackApply } from '../lib/analytics';
 export function FinalCTA() {
   const { t } = useT();
   const { sessionLabel } = useAdmissionData();
+  const trackApply = useTrackApply();
 
   // Dynamic eyebrow: "FALL 2026 ADMISSIONS" from Supabase
   const eyebrowText = sessionLabel
@@ -38,6 +40,7 @@ export function FinalCTA() {
             <Button
               as="a"
               href="#apply"
+              onClick={() => trackApply('final_cta')}
               variant="primary"
               size="lg"
               className="group">

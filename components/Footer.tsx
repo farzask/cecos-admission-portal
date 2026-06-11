@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import {
   MapPin,
   Phone,
@@ -12,9 +12,14 @@ import {
   'lucide-react';
 import { useT } from '../lib/i18n';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useTrackApply, useTrackLogin } from '../lib/analytics';
 
 export function Footer() {
   const { t } = useT();
+  const trackApply = useTrackApply();
+  const trackLogin = useTrackLogin();
+  const [showCredits, setShowCredits] = useState(false);
   return (
     <footer className="bg-white border-t border-[#E2DBCF]">
       <div className="mx-auto max-w-[1200px] px-5 md:px-8 py-14 md:py-16">
@@ -60,7 +65,10 @@ export function Footer() {
             </div>
             <ul className="space-y-3 text-[14px]">
               <li>
-                <a href="#apply" className="text-[#1A1612] hover:text-[#7A1818]">
+                <a
+                  href="#apply"
+                  onClick={() => trackApply('footer')}
+                  className="text-[#1A1612] hover:text-[#7A1818]">
                   {t('footer.apply')}
                 </a>
               </li>
@@ -83,7 +91,10 @@ export function Footer() {
                 </a>
               </li>
               <li>
-                <a href="#login" className="text-[#1A1612] hover:text-[#7A1818]">
+                <a
+                  href="#login"
+                  onClick={() => trackLogin('footer')}
+                  className="text-[#1A1612] hover:text-[#7A1818]">
                   {t('footer.draft')}
                 </a>
               </li>
@@ -146,16 +157,44 @@ export function Footer() {
         </div>
 
         <div className="mt-6 flex flex-col items-center gap-1.5 text-center">
-          <div className="text-[12.5px] text-[#5A524A] keep-ltr">
-            {t('footer.builtBy')}{' '}
-            <span className="font-semibold text-fire-600">CDGAI</span>
-          </div>
-          <div className="text-[11.5px] text-[#8A8178] keep-ltr">
-            {t('footer.crafted')}{' '}
-            <span className="font-medium text-[#5A524A]">Farza Shahzad</span>,{' '}
-            <span className="font-medium text-[#5A524A]">Khuwaja Muhammad Momin</span>{' '}
-            &amp;{' '}
-            <span className="font-medium text-[#5A524A]">Dr. Maryam Mahsal Khan</span>
+          <div 
+            className="relative inline-block"
+            onMouseEnter={() => setShowCredits(true)}
+            onMouseLeave={() => setShowCredits(false)}
+          >
+            <button
+              onClick={() => setShowCredits(!showCredits)}
+              onFocus={() => setShowCredits(true)}
+              onBlur={() => setShowCredits(false)}
+              className="text-[12.5px] text-[#5A524A] keep-ltr cursor-pointer hover:opacity-85 select-none focus:outline-hidden"
+              aria-haspopup="true"
+              aria-expanded={showCredits}
+            >
+              {t('footer.builtBy')}{' '}
+              <span className="font-semibold text-fire-600">CDGAI</span>
+            </button>
+
+            <AnimatePresence>
+              {showCredits && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 8, scale: 0.96 }}
+                  transition={{ duration: 0.15, ease: 'easeOut' }}
+                  className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3.5 z-50 w-72 p-3.5 bg-[#1A1612] text-white text-[12px] leading-relaxed rounded-xl shadow-elevated border border-white/10 text-center animate-fade-in"
+                >
+                  {/* Tooltip Arrow */}
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#1A1612]" />
+                  
+                  <div className="text-white/50 text-[10px] uppercase tracking-wider mb-1">
+                    {t('footer.crafted')}
+                  </div>
+                  <div className="font-medium text-white/95">
+                    Farza Shahzad, Khuwaja Muhammad Momin &amp; Dr. Maryam Mahsal Khan
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>

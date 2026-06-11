@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useState } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, ArrowLeft, Check, Sparkles, RotateCcw } from 'lucide-react';
 import { useT } from '../lib/i18n';
@@ -8,9 +8,12 @@ import { Button } from './ui/Button';
 import { Reveal } from './ui/Reveal';
 import { CountUp } from './ui/CountUp';
 import { backgroundOptions, interestOptions, programs } from '../lib/data';
+import { trackEvent, useTrackApply } from '../lib/analytics';
 type Step = 1 | 2 | 3 | 4;
 export function FindMyProgram() {
   const { t } = useT();
+  const trackApply = useTrackApply();
+  const startedRef = useRef(false);
   const [step, setStep] = useState<Step>(1);
   const [background, setBackground] = useState<string | null>(null);
   const [marks, setMarks] = useState<number>(70);
@@ -56,10 +59,48 @@ export function FindMyProgram() {
   }, [background, marks, interests]);
   const eligibleCount = matches.filter((m) => m.status !== 'no').length;
   function reset() {
+    trackEvent('quiz_restart');
+    startedRef.current = false;
     setStep(1);
     setBackground(null);
     setMarks(70);
     setInterests([]);
+  }
+  // Step 1: record the chosen academic background (and that the quiz started).
+  function selectBackground(b: string) {
+    if (!startedRef.current) {
+      trackEvent('quiz_start');
+      startedRef.current = true;
+    }
+    const isB_PG = b.startsWith('16-Year') || b.startsWith('18-Year');
+    setBackground(b);
+    setMarks(isB_PG ? 3.0 : 70);
+    trackEvent('quiz_step_complete', { step: 1, background: b, is_pg: isB_PG });
+    setTimeout(() => setStep(2), 180);
+  }
+  // Forward "Next": records the marks/CGPA chosen on step 2 before advancing.
+  function handleNext() {
+    if (step === 2) {
+      trackEvent('quiz_step_complete', { step: 2, marks, is_pg: isPG });
+    }
+    setStep((s) => Math.min(3, s + 1) as Step);
+  }
+  // Step 3 -> results: records interests and the full quiz completion (point 13).
+  function showResults() {
+    trackEvent('quiz_step_complete', {
+      step: 3,
+      interests: interests.join(',') || 'none',
+      interest_count: interests.length,
+    });
+    trackEvent('quiz_complete', {
+      background: background ?? 'unknown',
+      marks,
+      is_pg: isPG,
+      interests: interests.join(',') || 'none',
+      interest_count: interests.length,
+      eligible_count: eligibleCount,
+    });
+    setStep(4);
   }
   function toggleInterest(i: string) {
     setInterests((prev) => {
@@ -149,12 +190,7 @@ export function FindMyProgram() {
                       {backgroundOptions.map((b) =>
                         <button
                           key={b}
-                          onClick={() => {
-                            setBackground(b);
-                            const isB_PG = b.startsWith('16-Year') || b.startsWith('18-Year');
-                            setMarks(isB_PG ? 3.0 : 70);
-                            setTimeout(() => setStep(2), 180);
-                          }}
+                          onClick={() => selectBackground(b)}
                           className={`text-start p-4 rounded-2xl border transition-all min-h-[88px] ${background === b ? 'border-[#7A1818] bg-[#7A1818]/[0.05] ring-2 ring-[#7A1818]/20' : 'border-[#E2DBCF] hover:border-[#1A1612]/30 bg-white'}`}>
 
                           <div className="font-semibold text-[15px] text-[#1A1612]">
@@ -352,7 +388,12 @@ export function FindMyProgram() {
                     </div>
 
                     <div className="mt-8 flex flex-col sm:flex-row gap-3 sm:items-center">
-                      <Button as="a" href="#apply" variant="primary" size="lg">
+                      <Button
+                        as="a"
+                        href="#apply"
+                        onClick={() => trackApply('quiz_results')}
+                        variant="primary"
+                        size="lg">
                         {t('find.continue')}
                         <ArrowRight className="w-4 h-4 rtl:rotate-180" />
                       </Button>
@@ -381,7 +422,7 @@ export function FindMyProgram() {
 
                   {step === 3 ?
                     <Button
-                      onClick={() => setStep(4)}
+                      onClick={showResults}
                       variant="primary"
                       size="lg">
 
@@ -390,7 +431,7 @@ export function FindMyProgram() {
                     </Button> :
 
                     <Button
-                      onClick={() => setStep((s) => Math.min(3, s + 1) as Step)}
+                      onClick={handleNext}
                       variant="primary"
                       disabled={step === 1 && !background}>
 

@@ -40,7 +40,8 @@ export const Button = forwardRef<HTMLElement, Props>(function Button(
   const cls = `${base} ${variants[variant]} ${sizes[size]} ${className}`;
   if (href) {
     return (
-      <a href={href} className={cls} role="button">
+      // Spread rest so handlers (e.g. onClick for analytics) attach to links too.
+      <a href={href} className={cls} role="button" {...(rest as object)}>
         {children}
       </a>
     );

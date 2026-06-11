@@ -15,9 +15,11 @@ import { Button } from './ui/Button';
 import { Countdown } from './Countdown';
 import { phase1ClosesAt } from '../lib/data';
 import { useAdmissionData } from '../lib/AdmissionDataContext';
+import { trackEvent, useTrackApply } from '../lib/analytics';
 
 export function Hero() {
   const { t, lang } = useT();
+  const trackApply = useTrackApply();
   const { countdownTarget, sessionLabel, admissionLevel } = useAdmissionData();
 
   // Fall back to static date when Supabase isn't configured or still loading
@@ -81,6 +83,7 @@ export function Hero() {
               <Button
                 as="a"
                 href="#apply"
+                onClick={() => trackApply('hero')}
                 variant="primary"
                 size="lg"
                 className="group">
@@ -91,6 +94,7 @@ export function Hero() {
               <Button
                 as="a"
                 href="#find"
+                onClick={() => trackEvent('quiz_cta_click', { location: 'hero' })}
                 variant="ghost"
                 size="lg"
                 className="">

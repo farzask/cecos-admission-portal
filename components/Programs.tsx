@@ -8,6 +8,7 @@ import { disciplineGroups } from '../lib/data';
 import { useT } from '../lib/i18n';
 import { Reveal } from './ui/Reveal';
 import { useAdmissionData, type DisciplineRow } from '../lib/AdmissionDataContext';
+import { trackEvent, useTrackViewOnce } from '../lib/analytics';
 
 // ── Static fallback for postgraduate (used when Supabase is not configured) ──
 const staticPostgraduateGroups = [
@@ -127,6 +128,12 @@ export function Programs() {
   const { t } = useT();
   const [activeTab, setActiveTab] = useState<Tab>('undergraduate');
   const { disciplines } = useAdmissionData();
+  // Fires `programs_view` once when the section scrolls into view (point 13).
+  const sectionRef = useTrackViewOnce('programs_view');
+  function switchTab(tab: Tab) {
+    if (tab !== activeTab) trackEvent('program_tab_switch', { tab });
+    setActiveTab(tab);
+  }
 
   // Use Supabase data if available, otherwise fall back to static data
   const hasSupabaseData = disciplines.length > 0;
@@ -152,7 +159,7 @@ export function Programs() {
   }, [pgDisciplines]);
 
   return (
-    <section id="programs" className="bg-white">
+    <section id="programs" ref={sectionRef} className="bg-white">
       <div className="mx-auto max-w-[1200px] px-5 md:px-8 py-16 md:py-24">
         <Reveal>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
@@ -177,7 +184,7 @@ export function Programs() {
               <button
                 key={tab}
                 id={`tab-${tab}`}
-                onClick={() => setActiveTab(tab)}
+                onClick={() => switchTab(tab)}
                 className={`relative px-8 py-3 rounded-xl text-[16px] font-semibold transition-all duration-200 ${activeTab === tab
                     ? 'bg-[#7A1818] text-white shadow-md'
                     : 'text-[#5A524A] hover:text-[#1A1612] hover:bg-white/60'
@@ -223,6 +230,12 @@ export function Programs() {
                       <div className="mt-auto pt-6">
                         <Link
                           href={`/fees?group=${g.number}`}
+                          onClick={() =>
+                            trackEvent('program_fee_link', {
+                              group: g.number,
+                              group_name: g.name,
+                            })
+                          }
                           className="inline-flex items-center gap-2 text-[13px] font-medium text-[#7A1818] hover:text-[#A82222] transition-colors"
                         >
                           {t('programs.feeLink')}
@@ -266,6 +279,12 @@ export function Programs() {
                         </div>
                         <Link
                           href={`/fees?group=${g.number}`}
+                          onClick={() =>
+                            trackEvent('program_fee_link', {
+                              group: g.number,
+                              group_name: g.name,
+                            })
+                          }
                           className="inline-flex items-center gap-2 text-[13px] font-medium text-[#7A1818] hover:text-[#A82222] transition-colors"
                         >
                           {t('programs.feeLink')}

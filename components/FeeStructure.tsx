@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Search,
@@ -18,6 +18,7 @@ import { feeGroups, type FeeRow, type FeeGroup } from '../lib/data';
 import { useT } from '../lib/i18n';
 import { Reveal } from './ui/Reveal';
 import { Button } from './ui/Button';
+import { trackEvent, useTrackApply } from '../lib/analytics';
 
 // ── helpers ──────────────────────────────────────────────────────────────────
 function pkr(amount: number): string {
@@ -48,6 +49,17 @@ export function FeeStructure() {
   const searchParams = useSearchParams();
   const [query, setQuery] = useState(searchParams.get('q') || '');
   const inputRef = useRef<HTMLInputElement>(null);
+  const trackApply = useTrackApply();
+
+  // Debounced search tracking (point 4) — settled queries only.
+  useEffect(() => {
+    const q = query.trim();
+    if (!q) return;
+    const id = setTimeout(() => {
+      trackEvent('fee_search', { query: q });
+    }, 700);
+    return () => clearTimeout(id);
+  }, [query]);
 
   // Filter programs by search query
   const filtered = useMemo(() => {
@@ -207,7 +219,7 @@ export function FeeStructure() {
 
                       {/* Action buttons */}
                       <div className="flex flex-col sm:flex-row gap-3">
-                        <Button as="a" href="#apply" variant="primary" size="lg" className="w-full sm:w-fit">
+                        <Button as="a" href="#apply" onClick={() => trackApply('fees_card')} variant="primary" size="lg" className="w-full sm:w-fit">
                           {t('fee.cta')}
                           <ArrowRight className="w-4 h-4 rtl:rotate-180" />
                         </Button>

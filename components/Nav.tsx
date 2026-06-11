@@ -5,8 +5,11 @@ import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import { useT } from '../lib/i18n';
 import { Button } from './ui/Button';
+import { useTrackApply, useTrackLogin } from '../lib/analytics';
 export function Nav() {
   const { t } = useT();
+  const trackApply = useTrackApply();
+  const trackLogin = useTrackLogin();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
@@ -66,27 +69,30 @@ export function Nav() {
 
           <a
             href="#login"
+            onClick={() => trackLogin('navbar')}
             className="hidden sm:inline-flex h-10 px-4 items-center text-[14px] text-[#1A1612] hover:text-[#7A1818] border border-[#E2DBCF] hover:border-[#C9C0B4] rounded-[20px] transition-colors">
-            
+
             {t('nav.login')}
           </a>
 
           <Button
             as="a"
             href="#apply"
+            onClick={() => trackApply('navbar')}
             variant="primary"
             className="hidden md:inline-flex">
-            
+
             {t('nav.start')}
           </Button>
 
           <Button
             as="a"
             href="#apply"
+            onClick={() => trackApply('navbar_mobile')}
             variant="primary"
             size="md"
             className="md:hidden !px-3 !text-[13px]">
-            
+
             {t('nav.start')}
           </Button>
 
@@ -117,9 +123,12 @@ export function Nav() {
           )}
             <a
             href="#login"
-            onClick={() => setOpen(false)}
+            onClick={() => {
+              trackLogin('navbar_mobile_drawer');
+              setOpen(false);
+            }}
             className="py-3 text-[16px] text-[#2E2823] hover:text-[#1A1612]">
-            
+
               {t('nav.login')}
             </a>
           </div>

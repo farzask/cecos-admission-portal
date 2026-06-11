@@ -7,6 +7,7 @@ import { faqs } from '../lib/data';
 import { useT } from '../lib/i18n';
 import { Reveal } from './ui/Reveal';
 import { useAdmissionData } from '../lib/AdmissionDataContext';
+import { trackEvent } from '../lib/analytics';
 
 function formatPKR(amount: number): string {
   return amount.toLocaleString('en-PK');
@@ -67,7 +68,12 @@ export function Faqs() {
             return (
               <div key={i}>
                 <button
-                  onClick={() => setOpen(isOpen ? null : i)}
+                  onClick={() => {
+                    if (!isOpen) {
+                      trackEvent('faq_open', { question: f.q.en, index: i });
+                    }
+                    setOpen(isOpen ? null : i);
+                  }}
                   className="w-full py-5 md:py-6 flex items-start justify-between gap-6 text-start group"
                   aria-expanded={isOpen}>
 
