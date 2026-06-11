@@ -153,15 +153,7 @@ export function Programs() {
 
   return (
     <section id="programs" className="bg-white">
-      <div className="mx-auto max-w-[1200px] px-5 md:px-8 py-16 md:py-24 relative">
-        {/* Sand Sticker */}
-        <div
-          className="absolute -top-3 right-6 z-20 inline-flex items-center justify-center bg-[#F4D58D] text-[#1A1612] font-mono text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-md shadow-[0_2px_6px_rgba(26,22,18,0.08)] select-none"
-          style={{ transform: 'rotate(-2deg)' }}
-        >
-          {t('sticker.programs')}
-        </div>
-
+      <div className="mx-auto max-w-[1200px] px-5 md:px-8 py-16 md:py-24">
         <Reveal>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
             <div className="max-w-[640px]">

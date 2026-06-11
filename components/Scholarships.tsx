@@ -47,15 +47,7 @@ export function Scholarships() {
 
   return (
     <section id="scholarships" className="bg-white">
-      <div className="mx-auto max-w-[1200px] px-5 md:px-8 py-16 md:py-24 relative">
-        {/* Sand Sticker */}
-        <div
-          className="absolute -top-3 right-6 z-20 inline-flex items-center justify-center bg-[#F4D58D] text-[#1A1612] font-mono text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-md shadow-[0_2px_6px_rgba(26,22,18,0.08)] select-none"
-          style={{ transform: 'rotate(3deg)' }}
-        >
-          {t('sticker.scholarships')}
-        </div>
-
+      <div className="mx-auto max-w-[1200px] px-5 md:px-8 py-16 md:py-24">
         <Reveal>
           <div className="max-w-[760px]">
             <div className="inline-flex items-center gap-2 text-[#5A524A] text-[13px] uppercase tracking-[0.14em] mb-4">

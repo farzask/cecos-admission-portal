@@ -49,15 +49,7 @@ export function Faqs() {
 
   return (
     <section id="faqs" className="bg-white border-t border-[#E2DBCF]">
-      <div className="mx-auto max-w-[880px] px-5 md:px-8 py-16 md:py-24 relative">
-        {/* Sand Sticker */}
-        <div
-          className="absolute -top-3 right-6 z-20 inline-flex items-center justify-center bg-[#F4D58D] text-[#1A1612] font-mono text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-md shadow-[0_2px_6px_rgba(26,22,18,0.08)] select-none"
-          style={{ transform: 'rotate(-2.5deg)' }}
-        >
-          {t('sticker.faqs')}
-        </div>
-
+      <div className="mx-auto max-w-[880px] px-5 md:px-8 py-16 md:py-24">
         <Reveal>
           <div className="mb-10 md:mb-12">
             <div className="text-[#5A524A] text-[13px] uppercase tracking-[0.14em] font-medium mb-3 keep-ltr">
