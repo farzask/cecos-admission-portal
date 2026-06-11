@@ -1,0 +1,222 @@
+/* @import url() FONT IMPORTS MUST ALWAYS BE AT THE VERY TOP OF THIS FILE, ABOVE THE TAILWIND IMPORTS — DO NOT DELETE THIS COMMENT */
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital,wght@0,400;1,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+/* CRITICAL: Tailwind v4 is CSS-first — a single import replaces the v3 base/components/utilities trio. DO NOT DELETE THIS COMMENT */
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+/* Tailwind v4 defaults `border-color` to `currentColor`. Preserve the v3
+   behaviour so existing bare `border` utilities keep the light-grey default. */
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+/* Brand tokens exposed as Tailwind theme variables (CSS-first @theme). These
+   are additive — existing arbitrary-value classes keep working unchanged. */
+@theme {
+  --color-brand: #7a1818; /* crimson-800: primary CTA */
+  --color-brand-hover: #a82222; /* crimson-600: CTA hover */
+  --color-brand-active: #5c1212; /* crimson-900: CTA active/press */
+  --color-brand-tint: #faf7f2; /* surface-cream */
+  --color-brand-focus: #c42828; /* crimson-500: focus rings */
+  --color-brand-link: #8c1b1b; /* crimson-700: links */
+
+  --color-ink-950: #1a1612; /* primary text */
+  --color-ink-800: #2e2823; /* body text */
+  --color-ink-600: #5a524a; /* secondary text */
+  --color-ink-400: #9a9087; /* placeholder, metadata */
+  --color-ink-300: #c9c0b4; /* strong borders */
+  --color-ink-200: #e2dbcf; /* borders, dividers */
+  --color-ink-100: #efe9dd; /* hover surfaces */
+
+  --color-sand-400: #f4d58d; /* sticker/highlight accent */
+  --color-sand-500: #ebbe5e; /* accent text on sand */
+
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-sans:
+    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+:root {
+  /* Brand – Warm Editorial palette from BRAND.md */
+  --c-brand: #7a1818; /* crimson-800: primary CTA */
+  --c-brand-hover: #a82222; /* crimson-600: CTA hover */
+  --c-brand-active: #5c1212; /* crimson-900: CTA active/press */
+  --c-brand-tint: #faf7f2; /* surface-cream: subtle callout fill */
+  --c-brand-focus: #c42828; /* crimson-500: focus rings */
+  --c-brand-link: #8c1b1b; /* crimson-700: links */
+
+  --c-black: #1a1612; /* ink-950: primary text */
+  --c-charcoal: #2e2823; /* ink-800: body text */
+  --c-ghost: #2e2823; /* ink-800 */
+  --c-white: #ffffff; /* bg-default: pure white */
+  --c-offwhite: #ffffff; /* pure white page bg (no cream/off-white pages) */
+  --c-lightgray: #e2dbcf; /* ink-200: borders, dividers */
+  --c-palegray: #e2dbcf; /* ink-200 */
+  --c-mediumgray: #5a524a; /* ink-600: secondary text */
+  --c-accent: #f4d58d; /* sand-400: sticker/highlight accent */
+  --c-accent-text: #ebbe5e; /* sand-500: accent text on sand */
+
+  --c-ink-100: #efe9dd; /* hover surfaces, subtle dividers */
+  --c-ink-300: #c9c0b4; /* strong borders */
+  --c-ink-400: #9a9087; /* placeholder, metadata */
+
+  --shadow-surface:
+    rgba(26, 22, 18, 0.04) 0px 1px 2px 0px,
+    rgba(26, 22, 18, 0.08) 0px 8px 24px -16px;
+  --shadow-elevated: rgba(26, 22, 18, 0.12) 0px 8px 32px 0px;
+}
+html,
+body,
+#root {
+  height: 100%;
+}
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    sans-serif;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  color: var(--c-black);
+  background: var(--c-white);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+/* Display headline tightening */
+.display-tight {
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+}
+/* Focus ring */
+*:focus-visible {
+  outline: none;
+  box-shadow: 0px 0px 0px 4px rgba(196, 40, 40, 0.12);
+  border-radius: 6px;
+}
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* Smooth scroll for anchor links */
+html {
+  scroll-behavior: smooth;
+}
+/* Hide scrollbar on horizontal scroll containers */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+/* Card shadow utility */
+.shadow-surface {
+  box-shadow: var(--shadow-surface);
+}
+.shadow-elevated {
+  box-shadow: var(--shadow-elevated);
+}
+
+/* Typography */
+.font-display {
+  font-family: 'Instrument Serif', Georgia, serif;
+}
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Chunky Physical Buttons */
+.btn-chunky-primary {
+  background-color: #7a1818;
+  color: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 2px 0 0 #5c1212;
+  transition:
+    transform 120ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 120ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 120ms ease;
+}
+.btn-chunky-primary:hover:not(:disabled) {
+  background-color: #a82222;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 0 0 #5c1212;
+}
+.btn-chunky-primary:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 0 #5c1212;
+}
+
+.btn-chunky-secondary {
+  background-color: #ffffff;
+  color: #1a1612;
+  border: 1.5px solid #e2dbcf;
+  border-radius: 14px;
+  box-shadow: 0 2px 0 0 #c9c0b4;
+  transition:
+    transform 120ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 120ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 120ms ease;
+}
+.btn-chunky-secondary:hover:not(:disabled) {
+  background-color: #efe9dd;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 0 0 #c9c0b4;
+}
+.btn-chunky-secondary:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 0 #c9c0b4;
+}
+
+.btn-chunky-ghost-light {
+  background-color: transparent;
+  color: #1a1612;
+  border: 1.5px solid rgba(26, 22, 18, 0.15);
+  border-radius: 14px;
+  box-shadow: 0 2px 0 0 rgba(26, 22, 18, 0.1);
+  transition:
+    transform 120ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 120ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 120ms ease;
+}
+.btn-chunky-ghost-light:hover:not(:disabled) {
+  background-color: rgba(26, 22, 18, 0.05);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 0 0 rgba(26, 22, 18, 0.1);
+}
+.btn-chunky-ghost-light:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 0 rgba(26, 22, 18, 0.1);
+}
+
+.btn-chunky-ghost {
+  background-color: transparent;
+  color: #ffffff;
+  border: 1.5px solid rgba(255, 255, 255, 0.8);
+  border-radius: 14px;
+  box-shadow: 0 2px 0 0 rgba(255, 255, 255, 0.15);
+  transition:
+    transform 120ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 120ms cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 120ms ease;
+}
+.btn-chunky-ghost:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+  box-shadow: 0 3px 0 0 rgba(255, 255, 255, 0.15);
+}
+.btn-chunky-ghost:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.15);
+}

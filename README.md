@@ -12,25 +12,46 @@ Welcome to the **CECOS University Admission Portal**! This project is a modern, 
 
 ## 🛠️ Technology Stack
 
-- **Framework**: [React 18](https://react.dev/)
-- **Build Tool**: [Vite](https://vitejs.dev/)
-- **Styling**: [Tailwind CSS](https://tailwindcss.com/)
+- **Framework**: [Next.js 16](https://nextjs.org/) (App Router · React Server Components) · [React 19](https://react.dev/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) (CSS-first `@theme`)
+- **UI primitives**: [shadcn/ui](https://ui.shadcn.com/) (new-york) + custom components
 - **Animations**: [Framer Motion](https://www.framer.com/motion/)
-- **Routing**: [React Router](https://reactrouter.com/)
+- **Backend / data**: [Supabase](https://supabase.com/) via [`@supabase/ssr`](https://supabase.com/docs/guides/auth/server-side) — reads run on the server (RSC)
 - **Icons**: [Lucide React](https://lucide.dev/)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
+- **Language**: [TypeScript 6](https://www.typescriptlang.org/) (strict, `noUncheckedIndexedAccess`)
+- **Tooling**: pnpm 10 · ESLint 9 · Prettier
 
 ### Prerequisites
-Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
+- [Node.js](https://nodejs.org/) ≥ 22
+- [pnpm](https://pnpm.io/) 10 (`npm install -g pnpm`)
+
+Create a `.env.local` with your Supabase credentials:
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+```
+
+### Common scripts
+
+```bash
+pnpm dev          # start the dev server
+pnpm build        # production build
+pnpm start        # serve the production build
+pnpm lint         # eslint
+pnpm typecheck    # tsc --noEmit
+```
 
 ## 📁 Project Structure
 
-- `src/components/`: Contains all reusable UI components and page sections (e.g., `Hero`, `Programs`, `FeeStructure`, `Nav`).
-- `src/pages/`: Contains the main route pages like `HomePage`, `FeesPage`, `TermsPage`, and `PrivacyPage`.
-- `src/lib/`: Core utilities including:
-  - `data.ts`: Centralized data store for all programs, fees, scholarships, and testimonials.
+- `app/`: Next.js App Router — `layout.tsx` (root shell, fetches admission data), `page.tsx` (landing), and the `fees/`, `terms/`, `privacy/` routes.
+- `components/`: Reusable UI components and page sections (e.g., `Hero`, `Programs`, `FeeStructure`, `Nav`), with shared primitives under `components/ui/`.
+- `lib/`: Core logic including:
+  - `data.ts`: Centralized static data store for programs, fees, scholarships, and testimonials.
+  - `admission-data.ts`: Server-side Supabase read for the active admission cycle (RSC).
+  - `supabase/`: `@supabase/ssr` server + browser client factories.
   - `i18n.tsx`: Custom hook and context for English/Urdu translations.
-- `src/index.css`: Global styles and Tailwind directives.
+- `app/globals.css`: Global styles, design tokens, and the Tailwind v4 import.
 
 ## 📄 License
 
