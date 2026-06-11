@@ -525,6 +525,10 @@ export const dict: Dict = {
     en: '✨ YOUR TURN',
     ur: '✨ آپ کی باری'
   },
+  'sticker.how': {
+    en: '3 EASY STEPS',
+    ur: '3 آسان مراحل'
+  },
 
   // ─── FindMyProgram PG step ─────────────────────────────────────────────────
   'find.cgpaTitle': {

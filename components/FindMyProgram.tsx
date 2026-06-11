@@ -75,7 +75,7 @@ export function FindMyProgram() {
           <div className="max-w-[760px]">
             <div className="inline-flex items-center gap-2 text-[#7A1818] text-[13px] font-medium uppercase tracking-[0.14em] mb-4">
               <Sparkles className="w-3.5 h-3.5" />
-              <span className="keep-ltr">Find my program</span>
+              <span className="keep-ltr">{t('section.find')}</span>
             </div>
             <h2 className="display-tight font-semibold text-[#1A1612] text-[34px] md:text-[46px] tracking-tight">
               {t('find.title')}

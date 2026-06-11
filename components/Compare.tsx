@@ -21,7 +21,7 @@ export function Compare() {
           <Reveal className="lg:col-span-5">
             <div className="inline-flex items-center gap-2 text-[#5A524A] text-[13px] uppercase tracking-[0.14em] mb-4">
               <GitCompare className="w-3.5 h-3.5" />
-              <span className="keep-ltr">Compare</span>
+              <span className="keep-ltr">{t('section.compare')}</span>
             </div>
             <h2 className="display-tight font-semibold text-[#1A1612] text-[34px] md:text-[46px] tracking-tight">
               {t('compare.title')}
@@ -56,7 +56,7 @@ export function Compare() {
                 </Button>
                 {a === b &&
                   <span className="ml-3 text-[13px] text-[#9A9087]">
-                    Select two different programs.
+                    {t('compare.sameProgramError')}
                   </span>
                 }
               </div>
@@ -106,7 +106,7 @@ export function Compare() {
 
               <div className="flex items-center justify-between px-6 md:px-8 py-5 border-b border-[#E2DBCF]">
                 <div className="font-semibold text-[18px]">
-                  Side-by-side comparison
+                  {t('compare.modalTitle')}
                 </div>
                 <button
                   onClick={() => setOpen(false)}

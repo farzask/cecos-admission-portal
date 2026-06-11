@@ -4,6 +4,28 @@ import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { Providers } from './providers';
 import { getAdmissionData } from '@/lib/admission-data';
+import { Inter, Instrument_Serif, JetBrains_Mono } from 'next/font/google';
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ['latin'],
+  weight: ['400'],
+  style: ['normal', 'italic'],
+  variable: '--font-instrument',
+  display: 'swap',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  variable: '--font-jetbrains',
+  display: 'swap',
+});
+
 
 export const metadata: Metadata = {
   title: 'CECOS University Admission',
@@ -20,7 +42,7 @@ export default async function RootLayout({
   const admissionData = await getAdmissionData();
 
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}>
       <body className="min-h-screen bg-white text-[#1A1612] antialiased">
         <Providers admissionData={admissionData}>
           <Nav />

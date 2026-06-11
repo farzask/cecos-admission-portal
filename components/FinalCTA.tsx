@@ -24,6 +24,14 @@ export function FinalCTA() {
         <div className="absolute inset-0 bg-[#1A1612]/50"></div>
       </div>
       <div className="relative z-10 mx-auto max-w-[1000px] px-5 md:px-8 py-20 md:py-28 text-center">
+        {/* Sand Sticker */}
+        <div
+          className="absolute -top-3 right-6 z-20 inline-flex items-center justify-center bg-[#F4D58D] text-[#1A1612] font-mono text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-md shadow-[0_2px_6px_rgba(26,22,18,0.08)] select-none"
+          style={{ transform: 'rotate(-2deg)' }}
+        >
+          {t('sticker.finalCta')}
+        </div>
+
         <Reveal>
           <div className="inline-flex items-center gap-2 bg-white/[0.08] border border-white/10 rounded-full px-3 py-1.5 mb-8 keep-ltr">
             <span className="w-1.5 h-1.5 rounded-full bg-[#F4D58D]" />
@@ -31,7 +39,7 @@ export function FinalCTA() {
               {eyebrowText}
             </span>
           </div>
-          <h2 className="display-tight font-semibold text-white text-[40px] sm:text-[56px] md:text-[72px] tracking-tight">
+          <h2 className="display-tight font-display font-normal italic text-white text-[40px] sm:text-[56px] md:text-[72px] tracking-tight">
             {t('final.title')}
           </h2>
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">

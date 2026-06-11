@@ -157,6 +157,10 @@ export function Footer() {
             </span>
             <span className="hidden sm:inline-block h-px w-8 bg-[#E2DBCF]" />
           </div>
+          <div className="text-[11.5px] text-[#9A9087] keep-ltr">
+            {t('footer.builtBy')}{' '}
+            <span className="font-semibold text-fire-600">CDGAI</span>
+          </div>
         </div>
       </div>
     </footer>

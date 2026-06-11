@@ -24,11 +24,19 @@ export function Testimonials() {
   if (!current) return null;
   return (
     <section id="stories" className="bg-white border-t border-[#E2DBCF]">
-      <div className="mx-auto max-w-[1200px] px-5 md:px-8 py-16 md:py-24">
+      <div className="mx-auto max-w-[1200px] px-5 md:px-8 py-16 md:py-24 relative">
+        {/* Sand Sticker */}
+        <div
+          className="absolute -top-3 right-6 z-20 inline-flex items-center justify-center bg-[#F4D58D] text-[#1A1612] font-mono text-[11px] font-semibold uppercase tracking-wider px-3 py-1.5 rounded-md shadow-[0_2px_6px_rgba(26,22,18,0.08)] select-none"
+          style={{ transform: 'rotate(-1.5deg)' }}
+        >
+          {t('sticker.stories')}
+        </div>
+
         <Reveal>
           <div className="max-w-[760px] mb-10 md:mb-12">
             <div className="text-[#5A524A] text-[13px] uppercase tracking-[0.14em] font-medium mb-3 keep-ltr">
-              Graduate stories
+              {t('section.stories')}
             </div>
             <h2 className="display-tight font-semibold text-[#1A1612] text-[34px] md:text-[46px] tracking-tight">
               {t('stories.title')}
