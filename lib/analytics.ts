@@ -48,15 +48,15 @@ export function deadlineWindow(days: number | undefined): string {
 }
 
 /**
- * Returns a `trackApply(location)` fn that fires an `apply_click` event tagged
- * with where the button lives and how close the deadline is (exact days +
- * bucket), powering point 2 and point 14.
+ * Returns a `trackApply(location)` fn that fires an `apply_button_clicked`
+ * event tagged with where the button lives and how close the deadline is
+ * (exact days + bucket), powering point 2 and point 14.
  */
 export function useTrackApply(): (location: string) => void {
   const { countdownTarget } = useAdmissionData();
   return (location: string) => {
     const days = daysUntil(countdownTarget);
-    trackEvent('apply_click', {
+    trackEvent('apply_button_clicked', {
       location,
       days_to_deadline: days,
       deadline_window: deadlineWindow(days),
@@ -66,12 +66,13 @@ export function useTrackApply(): (location: string) => void {
 
 /** Returns a `trackLogin(location)` fn for the login button (point 1). */
 export function useTrackLogin(): (location: string) => void {
-  return (location: string) => trackEvent('login_click', { location });
+  return (location: string) => trackEvent('login_button_clicked', { location });
 }
 
 /**
  * Fires `name` once, the first time the returned ref's element scrolls into
- * view. Used to record "viewed programs" (point 13) without double counting.
+ * view. Used to record when a visitor sees the programs section (point 13)
+ * without double counting.
  */
 export function useTrackViewOnce(name: string, params: EventParams = {}) {
   const ref = useRef<HTMLElement | null>(null);

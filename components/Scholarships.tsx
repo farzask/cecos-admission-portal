@@ -12,7 +12,7 @@ export function Scholarships() {
   const { t } = useT();
   const [cat, setCat] = useState<Cat>('all');
   function selectCat(next: Cat) {
-    if (next !== cat) trackEvent('scholarship_filter', { category: next });
+    if (next !== cat) trackEvent('scholarship_category_selected', { category: next });
     setCat(next);
   }
   const filtered = useMemo(() => {

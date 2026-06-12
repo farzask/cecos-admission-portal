@@ -128,10 +128,10 @@ export function Programs() {
   const { t } = useT();
   const [activeTab, setActiveTab] = useState<Tab>('undergraduate');
   const { disciplines } = useAdmissionData();
-  // Fires `programs_view` once when the section scrolls into view (point 13).
-  const sectionRef = useTrackViewOnce('programs_view');
+  // Fires `programs_section_viewed` once when the section scrolls into view (point 13).
+  const sectionRef = useTrackViewOnce('programs_section_viewed');
   function switchTab(tab: Tab) {
-    if (tab !== activeTab) trackEvent('program_tab_switch', { tab });
+    if (tab !== activeTab) trackEvent('degree_level_tab_changed', { tab });
     setActiveTab(tab);
   }
 
@@ -231,7 +231,7 @@ export function Programs() {
                         <Link
                           href={`/fees?group=${g.number}`}
                           onClick={() =>
-                            trackEvent('program_fee_link', {
+                            trackEvent('fee_details_clicked', {
                               group: g.number,
                               group_name: g.name,
                             })
@@ -280,7 +280,7 @@ export function Programs() {
                         <Link
                           href={`/fees?group=${g.number}`}
                           onClick={() =>
-                            trackEvent('program_fee_link', {
+                            trackEvent('fee_details_clicked', {
                               group: g.number,
                               group_name: g.name,
                             })

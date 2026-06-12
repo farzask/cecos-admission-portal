@@ -94,7 +94,7 @@ export function Hero() {
               <Button
                 as="a"
                 href="#find"
-                onClick={() => trackEvent('quiz_cta_click', { location: 'hero' })}
+                onClick={() => trackEvent('program_finder_opened', { location: 'hero' })}
                 variant="ghost"
                 size="lg"
                 className="">

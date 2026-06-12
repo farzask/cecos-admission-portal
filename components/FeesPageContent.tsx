@@ -56,7 +56,7 @@ export function FeesPageContent() {
   // Record arrival via a program "View fees" deep-link (point 4 filtering).
   useEffect(() => {
     if (initialGroup) {
-      trackEvent('fee_filter', {
+      trackEvent('fee_group_filtered', {
         group: parseInt(initialGroup, 10),
         source: 'deeplink',
       });
@@ -70,7 +70,7 @@ export function FeesPageContent() {
     const q = query.trim();
     if (!q) return;
     const id = setTimeout(() => {
-      trackEvent('fee_search', { query: q });
+      trackEvent('fee_search_performed', { query: q });
     }, 700);
     return () => clearTimeout(id);
   }, [query]);
@@ -113,7 +113,7 @@ export function FeesPageContent() {
           <div className="max-w-[760px] mb-10 md:mb-12">
             <div className="inline-flex items-center gap-2 text-[#7A1818] text-[13px] font-medium uppercase tracking-[0.14em] mb-4">
               <DollarSign className="w-3.5 h-3.5" />
-              <span className="keep-ltr">Fee Structure 2025</span>
+              <span className="keep-ltr">Fee Structure 2026</span>
             </div>
             <h1 className="display-tight font-display font-normal italic text-[#1A1612] text-[40px] md:text-[54px] tracking-tight">
               Know exactly what you&apos;ll invest — no surprises.
@@ -290,7 +290,7 @@ export function FeesPageContent() {
           <div className="mt-8 flex items-start gap-3 p-4 rounded-2xl bg-white border border-[#E2DBCF]">
             <Info className="w-4 h-4 text-[#9A9087] shrink-0 mt-0.5" />
             <p className="text-[13px] text-[#5A524A] leading-relaxed">
-              Fees shown are based on the 2025 schedule and subject to change.
+              Fees shown are based on the 2026 approved schedule and subject to change.
               Lab, hostel, and transport charges may apply separately. Contact
               admissions for the most current schedule.
             </p>

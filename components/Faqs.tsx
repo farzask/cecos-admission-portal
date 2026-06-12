@@ -70,7 +70,7 @@ export function Faqs() {
                 <button
                   onClick={() => {
                     if (!isOpen) {
-                      trackEvent('faq_open', { question: f.q.en, index: i });
+                      trackEvent('faq_question_opened', { question: f.q.en, index: i });
                     }
                     setOpen(isOpen ? null : i);
                   }}

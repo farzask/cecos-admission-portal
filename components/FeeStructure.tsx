@@ -56,7 +56,7 @@ export function FeeStructure() {
     const q = query.trim();
     if (!q) return;
     const id = setTimeout(() => {
-      trackEvent('fee_search', { query: q });
+      trackEvent('fee_search_performed', { query: q });
     }, 700);
     return () => clearTimeout(id);
   }, [query]);

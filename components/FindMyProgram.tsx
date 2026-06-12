@@ -9,6 +9,11 @@ import { Reveal } from './ui/Reveal';
 import { CountUp } from './ui/CountUp';
 import { backgroundOptions, interestOptions, programs } from '../lib/data';
 import { trackEvent, useTrackApply } from '../lib/analytics';
+// UG-only background options (exclude 16-Year / 18-Year postgrad backgrounds)
+const ugBackgroundOptions = backgroundOptions.filter(
+  (b) => !b.startsWith('16-Year') && !b.startsWith('18-Year')
+);
+
 type Step = 1 | 2 | 3 | 4;
 export function FindMyProgram() {
   const { t } = useT();
@@ -18,29 +23,18 @@ export function FindMyProgram() {
   const [background, setBackground] = useState<string | null>(null);
   const [marks, setMarks] = useState<number>(70);
   const [interests, setInterests] = useState<string[]>([]);
-  const isPG = useMemo(() => {
-    return background ? (background.startsWith('16-Year') || background.startsWith('18-Year')) : false;
-  }, [background]);
   const matches = useMemo(() => {
     if (!background) return [];
-    const isB_PG = background.startsWith('16-Year') || background.startsWith('18-Year');
     return programs.
-      filter((p) => p.backgrounds.includes(background)).
+      filter((p) => p.level === 'UG' && p.backgrounds.includes(background)).
       map((p) => {
         const interestMatch =
           interests.length === 0 ||
           p.interests.some((i) => interests.includes(i));
         let status: 'eligible' | 'close' | 'no';
-        if (isB_PG) {
-          const threshold = p.minCGPA || 2.0;
-          if (marks >= threshold) status = 'eligible'; else
-            if (marks >= threshold - 0.2) status = 'close'; else
-              status = 'no';
-        } else {
-          if (marks >= p.minPercent) status = 'eligible'; else
-            if (marks >= p.minPercent - 5) status = 'close'; else
-              status = 'no';
-        }
+        if (marks >= p.minPercent) status = 'eligible'; else
+          if (marks >= p.minPercent - 5) status = 'close'; else
+            status = 'no';
         return {
           p,
           status,
@@ -59,7 +53,7 @@ export function FindMyProgram() {
   }, [background, marks, interests]);
   const eligibleCount = matches.filter((m) => m.status !== 'no').length;
   function reset() {
-    trackEvent('quiz_restart');
+    trackEvent('program_finder_restarted');
     startedRef.current = false;
     setStep(1);
     setBackground(null);
@@ -69,33 +63,31 @@ export function FindMyProgram() {
   // Step 1: record the chosen academic background (and that the quiz started).
   function selectBackground(b: string) {
     if (!startedRef.current) {
-      trackEvent('quiz_start');
+      trackEvent('program_finder_started');
       startedRef.current = true;
     }
-    const isB_PG = b.startsWith('16-Year') || b.startsWith('18-Year');
     setBackground(b);
-    setMarks(isB_PG ? 3.0 : 70);
-    trackEvent('quiz_step_complete', { step: 1, background: b, is_pg: isB_PG });
+    setMarks(70);
+    trackEvent('program_finder_background_selected', { background: b });
     setTimeout(() => setStep(2), 180);
   }
-  // Forward "Next": records the marks/CGPA chosen on step 2 before advancing.
+  // Forward "Next": records the marks chosen on step 2 before advancing.
   function handleNext() {
     if (step === 2) {
-      trackEvent('quiz_step_complete', { step: 2, marks, is_pg: isPG });
+      trackEvent('program_finder_step_2_completed', { marks });
     }
     setStep((s) => Math.min(3, s + 1) as Step);
   }
   // Step 3 -> results: records interests and the full quiz completion (point 13).
   function showResults() {
-    trackEvent('quiz_step_complete', {
+    trackEvent('program_finder_interests_selected', {
       step: 3,
       interests: interests.join(',') || 'none',
       interest_count: interests.length,
     });
-    trackEvent('quiz_complete', {
+    trackEvent('program_finder_completed', {
       background: background ?? 'unknown',
       marks,
-      is_pg: isPG,
       interests: interests.join(',') || 'none',
       interest_count: interests.length,
       eligible_count: eligibleCount,
@@ -187,7 +179,7 @@ export function FindMyProgram() {
                       {t('find.step1')}
                     </h3>
                     <div className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-                      {backgroundOptions.map((b) =>
+                      {ugBackgroundOptions.map((b) =>
                         <button
                           key={b}
                           onClick={() => selectBackground(b)}
@@ -222,40 +214,33 @@ export function FindMyProgram() {
                     }}>
 
                     <h3 className="text-[22px] md:text-[26px] font-semibold text-[#1A1612]">
-                      {isPG ? "What was your CGPA?" : t('find.step2')}
+                      {t('find.step2')}
                     </h3>
-                    {isPG && (
-                      <p className="mt-3 text-[#5A524A] text-[15px]">
-                        Most CECOS postgraduate programs need 2.0+ CGPA. PhD programs need 3.0+ CGPA.
-                      </p>
-                    )}
 
                     <div className="mt-8 max-w-[520px]">
                       <div className="flex items-end justify-between mb-3">
                         <span className="num text-[48px] md:text-[64px] font-semibold leading-none text-[#1A1612] tabular-nums">
-                          {isPG ? marks.toFixed(1) : marks}
-                          <span className="text-[#7A1818]">{isPG ? ' CGPA' : '%'}</span>
+                          {marks}
+                          <span className="text-[#7A1818]">%</span>
                         </span>
                         <input
                           type="number"
-                          min={isPG ? 2.0 : 40}
-                          max={isPG ? 4.0 : 100}
-                          step={isPG ? 0.1 : 1}
+                          min={40}
+                          max={100}
+                          step={1}
                           value={marks}
                           onChange={(e) => {
                             const val = Number(e.target.value) || 0;
-                            const minVal = isPG ? 2.0 : 40;
-                            const maxVal = isPG ? 4.0 : 100;
-                            setMarks(Math.max(minVal, Math.min(maxVal, val)));
+                            setMarks(Math.max(40, Math.min(100, val)));
                           }}
                           className="num w-20 h-10 px-3 rounded-xl border border-[#E2DBCF] text-center text-[15px] focus:border-[#C42828] focus:ring-4 focus:ring-[#C42828]/12 transition-all outline-none" />
 
                       </div>
                       <input
                         type="range"
-                        min={isPG ? 2.0 : 40}
-                        max={isPG ? 4.0 : 100}
-                        step={isPG ? 0.1 : 1}
+                        min={40}
+                        max={100}
+                        step={1}
                         value={marks}
                         onChange={(e) => setMarks(Number(e.target.value))}
                         className="w-full accent-[#7A1818]"
@@ -264,8 +249,8 @@ export function FindMyProgram() {
                         }} />
 
                       <div className="flex justify-between mt-2 text-[12px] text-[#5A524A] num">
-                        <span>{isPG ? '2.0 CGPA' : '40%'}</span>
-                        <span>{isPG ? '4.0 CGPA' : '100%'}</span>
+                        <span>40%</span>
+                        <span>100%</span>
                       </div>
                     </div>
                   </motion.div>
@@ -379,7 +364,7 @@ export function FindMyProgram() {
                           </div>
                           <div className="mt-3 flex items-center justify-between gap-2">
                             <div className="text-[12px] text-[#5A524A]">
-                              Min <span className="num">{isPG ? `${p.minCGPA || 2.0} CGPA` : `${p.minPercent}%`}</span>
+                              Min <span className="num">{p.minPercent}%</span>
                             </div>
                             <StatusPill status={status} t={t} />
                           </div>
@@ -391,7 +376,7 @@ export function FindMyProgram() {
                       <Button
                         as="a"
                         href="#apply"
-                        onClick={() => trackApply('quiz_results')}
+                        onClick={() => trackApply('finder_results')}
                         variant="primary"
                         size="lg">
                         {t('find.continue')}
