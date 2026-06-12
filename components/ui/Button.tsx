@@ -5,6 +5,7 @@ import {
   type ButtonHTMLAttributes,
   type ElementType,
 } from 'react';
+import { cn } from '../../lib/utils';
 type Variant = 'primary' | 'secondary' | 'ghost' | 'ghost-light';
 type Size = 'md' | 'lg';
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -37,7 +38,7 @@ export const Button = forwardRef<HTMLElement, Props>(function Button(
   },
   ref
 ) {
-  const cls = `${base} ${variants[variant]} ${sizes[size]} ${className}`;
+  const cls = cn(base, variants[variant], sizes[size], className);
   if (href) {
     return (
       // Spread rest so handlers (e.g. onClick for analytics) attach to links too.
